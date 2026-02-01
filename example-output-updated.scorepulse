@@ -1,0 +1,82 @@
+{
+  "id": "3404a28e-a0c0-4915-b43b-5cfb8bb0ee3b",
+  "title": "Updated Example",
+  "composer": "Test Composer",
+  "defaultTempo": 120,
+  "tempoChanges": [
+    {
+      "id": "ece01645-664d-49d7-9266-31829c7befc4",
+      "bar": 1,
+      "tempo": 120
+    },
+    {
+      "id": "f00f24e9-c157-4db6-a2fd-d9388a877aa7",
+      "bar": 9,
+      "tempo": 140,
+      "marking": "Allegro"
+    },
+    {
+      "id": "9dc84145-1e21-47af-8527-bc4815026dec",
+      "bar": 20,
+      "tempo": 80,
+      "marking": "Adagio"
+    }
+  ],
+  "rehearsalMarks": [
+    {
+      "id": "db3b28e3-5b45-4d42-8ffc-b2b344b23c7e",
+      "name": "A",
+      "bar": 1
+    },
+    {
+      "id": "38254da1-cc4f-45d3-94ba-8654fde61d4e",
+      "name": "1",
+      "bar": 6
+    },
+    {
+      "id": "796456bd-633c-4b19-bbd7-0f4dbda35225",
+      "name": "2",
+      "bar": 12
+    },
+    {
+      "id": "b0760bab-8da6-47cf-aa33-5971a72bfec8",
+      "name": "B",
+      "bar": 18
+    }
+  ],
+  "bars": [
+    {
+      "id": "5706f313-4355-4128-babd-6658e87b80b1",
+      "number": 1,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "df4de94a-91f7-459d-a69e-f2715f4e549f",
+      "number": 3,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "0b5cbaac-786a-4210-93d1-43d4c3a369a6",
+      "number": 9,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "4e11aeca-8524-478e-a1fb-539a5115e7ea",
+      "number": 15,
+      "timeSignature": "5/4"
+    },
+    {
+      "id": "3279cfae-2639-4d5a-bb92-5d444414bc35",
+      "number": 20,
+      "timeSignature": {
+        "timeSignature": "7/8",
+        "accentPattern": [
+          2,
+          2,
+          3
+        ]
+      }
+    }
+  ],
+  "totalBars": 20
+}

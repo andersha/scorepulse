@@ -1,0 +1,45 @@
+{
+  "id": "A1B2C3D4-E5F6-7890-ABCD-EF1234567890",
+  "title": "Test Waltz",
+  "composer": "Test Composer",
+  "defaultTempo": 132,
+  "tempoChanges": [
+    {
+      "id": "T1B2C3D4-E5F6-7890-ABCD-EF1234567891",
+      "bar": 1,
+      "tempo": 132,
+      "marking": "Allegro moderato"
+    },
+    {
+      "id": "T2B2C3D4-E5F6-7890-ABCD-EF1234567892",
+      "bar": 25,
+      "tempo": 88,
+      "marking": "Meno mosso"
+    }
+  ],
+  "rehearsalMarks": [
+    {
+      "id": "R1B2C3D4-E5F6-7890-ABCD-EF1234567893",
+      "name": "A",
+      "bar": 1
+    },
+    {
+      "id": "R2B2C3D4-E5F6-7890-ABCD-EF1234567894",
+      "name": "B",
+      "bar": 17
+    },
+    {
+      "id": "R3B2C3D4-E5F6-7890-ABCD-EF1234567895",
+      "name": "C",
+      "bar": 33
+    }
+  ],
+  "bars": [
+    {
+      "id": "B1B2C3D4-E5F6-7890-ABCD-EF1234567896",
+      "number": 1,
+      "timeSignature": "3/4"
+    }
+  ],
+  "totalBars": 48
+}

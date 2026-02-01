@@ -1,0 +1,425 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA0000010000000000000001 /* ScorePulseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000001 /* ScorePulseApp.swift */; };
+		AA0000010000000000000002 /* TimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000002 /* TimeSignature.swift */; };
+		AA0000010000000000000003 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000003 /* Bar.swift */; };
+		AA0000010000000000000004 /* TempoChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000004 /* TempoChange.swift */; };
+		AA0000010000000000000005 /* RehearsalMark.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000005 /* RehearsalMark.swift */; };
+		AA0000010000000000000006 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000006 /* Score.swift */; };
+		AA0000010000000000000007 /* MetronomeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000007 /* MetronomeSettings.swift */; };
+		AA0000010000000000000008 /* MetronomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000008 /* MetronomeEngine.swift */; };
+		AA0000010000000000000009 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000009 /* MetronomeView.swift */; };
+		AA000001000000000000000A /* ScoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000A /* ScoreListView.swift */; };
+		AA000001000000000000000B /* ScorePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000B /* ScorePlayerView.swift */; };
+		AA000001000000000000000C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000C /* Assets.xcassets */; };
+		AA000001000000000000000D /* bundled-scores.json in Resources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000D /* bundled-scores.json */; };
+		C5C4178166FD2273779E925B /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */; };
+		F6705638B70120A08DBA8651 /* ScoreStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScoreStorageManager.swift; sourceTree = "<group>"; };
+		AA00000200000000000000FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		BB0000010000000000000000 /* ScorePulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScorePulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BB0000010000000000000001 /* ScorePulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePulseApp.swift; sourceTree = "<group>"; };
+		BB0000010000000000000002 /* TimeSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignature.swift; sourceTree = "<group>"; };
+		BB0000010000000000000003 /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
+		BB0000010000000000000004 /* TempoChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoChange.swift; sourceTree = "<group>"; };
+		BB0000010000000000000005 /* RehearsalMark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RehearsalMark.swift; sourceTree = "<group>"; };
+		BB0000010000000000000006 /* Score.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		BB0000010000000000000007 /* MetronomeSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeSettings.swift; sourceTree = "<group>"; };
+		BB0000010000000000000008 /* MetronomeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeEngine.swift; sourceTree = "<group>"; };
+		BB0000010000000000000009 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
+		BB000001000000000000000A /* ScoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreListView.swift; sourceTree = "<group>"; };
+		BB000001000000000000000B /* ScorePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePlayerView.swift; sourceTree = "<group>"; };
+		BB000001000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		BB000001000000000000000D /* bundled-scores.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bundled-scores.json"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CC0000010000000000000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DD0000010000000000000001 = {
+			isa = PBXGroup;
+			children = (
+				DD0000010000000000000002 /* ScorePulse */,
+				DD0000010000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DD0000010000000000000002 /* ScorePulse */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000010000000000000001 /* ScorePulseApp.swift */,
+				AA00000200000000000000FF /* Info.plist */,
+				DD0000010000000000000004 /* Models */,
+				DD0000010000000000000005 /* Audio */,
+				DD0000010000000000000006 /* Views */,
+				DD0000010000000000000007 /* Scores */,
+				BB000001000000000000000C /* Assets.xcassets */,
+			);
+			path = ScorePulse;
+			sourceTree = "<group>";
+		};
+		DD0000010000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000010000000000000000 /* ScorePulse.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DD0000010000000000000004 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000010000000000000002 /* TimeSignature.swift */,
+				BB0000010000000000000003 /* Bar.swift */,
+				BB0000010000000000000004 /* TempoChange.swift */,
+				BB0000010000000000000005 /* RehearsalMark.swift */,
+				BB0000010000000000000006 /* Score.swift */,
+				BB0000010000000000000007 /* MetronomeSettings.swift */,
+				380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		DD0000010000000000000005 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000010000000000000008 /* MetronomeEngine.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
+		DD0000010000000000000006 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BB0000010000000000000009 /* MetronomeView.swift */,
+				BB000001000000000000000A /* ScoreListView.swift */,
+				BB000001000000000000000B /* ScorePlayerView.swift */,
+				8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		DD0000010000000000000007 /* Scores */ = {
+			isa = PBXGroup;
+			children = (
+				BB000001000000000000000D /* bundled-scores.json */,
+			);
+			path = Scores;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EE0000010000000000000001 /* ScorePulse */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EE0000010000000000000002 /* Build configuration list for PBXNativeTarget "ScorePulse" */;
+			buildPhases = (
+				EE0000010000000000000003 /* Sources */,
+				CC0000010000000000000001 /* Frameworks */,
+				EE0000010000000000000004 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScorePulse;
+			productName = ScorePulse;
+			productReference = BB0000010000000000000000 /* ScorePulse.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FF0000010000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					EE0000010000000000000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = FF0000010000000000000002 /* Build configuration list for PBXProject "ScorePulse" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DD0000010000000000000001;
+			productRefGroup = DD0000010000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EE0000010000000000000001 /* ScorePulse */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EE0000010000000000000004 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA000001000000000000000C /* Assets.xcassets in Resources */,
+				AA000001000000000000000D /* bundled-scores.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EE0000010000000000000003 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0000010000000000000001 /* ScorePulseApp.swift in Sources */,
+				AA0000010000000000000002 /* TimeSignature.swift in Sources */,
+				AA0000010000000000000003 /* Bar.swift in Sources */,
+				AA0000010000000000000004 /* TempoChange.swift in Sources */,
+				AA0000010000000000000005 /* RehearsalMark.swift in Sources */,
+				AA0000010000000000000006 /* Score.swift in Sources */,
+				AA0000010000000000000007 /* MetronomeSettings.swift in Sources */,
+				AA0000010000000000000008 /* MetronomeEngine.swift in Sources */,
+				AA0000010000000000000009 /* MetronomeView.swift in Sources */,
+				AA000001000000000000000A /* ScoreListView.swift in Sources */,
+				AA000001000000000000000B /* ScorePlayerView.swift in Sources */,
+				F6705638B70120A08DBA8651 /* ScoreStorageManager.swift in Sources */,
+				C5C4178166FD2273779E925B /* DocumentPicker.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		GG0000010000000000000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		GG0000010000000000000002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		GG0000010000000000000003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = HM9572KML7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ScorePulse/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scorepulse.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		GG0000010000000000000004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = HM9572KML7;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = ScorePulse/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.scorepulse.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EE0000010000000000000002 /* Build configuration list for PBXNativeTarget "ScorePulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG0000010000000000000003 /* Debug */,
+				GG0000010000000000000004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF0000010000000000000002 /* Build configuration list for PBXProject "ScorePulse" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				GG0000010000000000000001 /* Debug */,
+				GG0000010000000000000002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FF0000010000000000000001 /* Project object */;
+}
