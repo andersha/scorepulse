@@ -20,6 +20,12 @@ struct ScorePulseApp: App {
                         Label("Scores", systemImage: "music.note.list")
                     }
                     .tag(1)
+                
+                AboutView()
+                    .tabItem {
+                        Label("About", systemImage: "info.circle")
+                    }
+                    .tag(2)
             }
             .onOpenURL { url in
                 handleIncomingURL(url)

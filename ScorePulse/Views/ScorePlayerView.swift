@@ -6,9 +6,11 @@ struct ScorePlayerView: View {
     @StateObject private var engine = MetronomeEngine()
     @State private var currentBar = 1
     @State private var currentBeat = 1
+    @State private var currentDisplayTempo: Int? = nil  // Live tempo during playback
     @State private var tempoMultiplier: Double = 1.0
     @State private var subdivision = SubdivisionMode.quarter
     @State private var rehearsalMode = false
+    @State private var countIn = true  // Count one bar before starting
     @State private var playStartBar = 1  // The bar we started playing from
     @State private var showingBarInput = false
     @State private var barInputText = ""
@@ -23,7 +25,8 @@ struct ScorePlayerView: View {
     }
     
     var effectiveTempo: Int {
-        Int(Double(currentTempo) * tempoMultiplier)
+        // Use live tempo during playback, otherwise calculate from score
+        currentDisplayTempo ?? Int(Double(currentTempo) * tempoMultiplier)
     }
     
     var currentRehearsalMark: RehearsalMark? {
@@ -192,6 +195,15 @@ struct ScorePlayerView: View {
                     .cornerRadius(12)
                 }
                 
+                // Count-in toggle
+                Toggle("Count-in", isOn: $countIn)
+                    .font(.subheadline)
+                    .fontWeight(.medium)
+                    .disabled(engine.isPlaying)
+                    .padding()
+                    .background(Color.orange.opacity(countIn ? 0.1 : 0.05))
+                    .cornerRadius(12)
+                
                 // Play/Stop button
                 Button(action: togglePlayback) {
                     HStack {
@@ -242,6 +254,7 @@ struct ScorePlayerView: View {
     private func togglePlayback() {
         if engine.isPlaying {
             engine.stop()
+            currentDisplayTempo = nil  // Reset to calculated tempo
             if rehearsalMode {
                 // Return to where we started
                 currentBar = playStartBar
@@ -254,10 +267,15 @@ struct ScorePlayerView: View {
                 score: score,
                 startBar: currentBar,
                 tempoMultiplier: tempoMultiplier,
-                subdivision: subdivision
-            ) { bar, beat in
-                currentBar = bar
+                subdivision: subdivision,
+                countIn: countIn
+            ) { bar, beat, tempo in
+                // bar == -1 means count-in, don't update bar position
+                if bar >= 0 {
+                    currentBar = bar
+                }
                 currentBeat = beat
+                currentDisplayTempo = tempo
             }
         }
     }

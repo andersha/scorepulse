@@ -17,6 +17,7 @@
 		AA0000010000000000000008 /* MetronomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000008 /* MetronomeEngine.swift */; };
 		AA0000010000000000000009 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000009 /* MetronomeView.swift */; };
 		AA000001000000000000000A /* ScoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000A /* ScoreListView.swift */; };
+		ACA3A02CA8F70C08EC1520FF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2CD0A6AC564E933AAC8272 /* AboutView.swift */; };
 		AA000001000000000000000B /* ScorePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000B /* ScorePlayerView.swift */; };
 		AA000001000000000000000C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000C /* Assets.xcassets */; };
 		AA000001000000000000000D /* bundled-scores.json in Resources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000D /* bundled-scores.json */; };
@@ -39,6 +40,7 @@
 		BB0000010000000000000008 /* MetronomeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeEngine.swift; sourceTree = "<group>"; };
 		BB0000010000000000000009 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000A /* ScoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreListView.swift; sourceTree = "<group>"; };
+		AB2CD0A6AC564E933AAC8272 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000B /* ScorePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePlayerView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB000001000000000000000D /* bundled-scores.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bundled-scores.json"; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				BB0000010000000000000009 /* MetronomeView.swift */,
 				BB000001000000000000000A /* ScoreListView.swift */,
 				BB000001000000000000000B /* ScorePlayerView.swift */,
+				AB2CD0A6AC564E933AAC8272 /* AboutView.swift */,
 				8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */,
 			);
 			path = Views;
@@ -207,6 +210,7 @@
 				AA0000010000000000000009 /* MetronomeView.swift in Sources */,
 				AA000001000000000000000A /* ScoreListView.swift in Sources */,
 				AA000001000000000000000B /* ScorePlayerView.swift in Sources */,
+				ACA3A02CA8F70C08EC1520FF /* AboutView.swift in Sources */,
 				F6705638B70120A08DBA8651 /* ScoreStorageManager.swift in Sources */,
 				C5C4178166FD2273779E925B /* DocumentPicker.swift in Sources */,
 			);

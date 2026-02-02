@@ -62,15 +62,31 @@ def validate_division_matches_time_signature(division: List[int], time_signature
     return True, ""
 
 
-def validate_tempo(tempo: str) -> Tuple[bool, Optional[int]]:
-    """Validate tempo value. Returns (is_valid, tempo_int)."""
+def validate_tempo(tempo: str) -> Tuple[bool, Optional[int], Optional[str]]:
+    """
+    Validate tempo value or transition marker.
+    Returns (is_valid, tempo_int_or_none, transition_type_or_none).
+    transition_type can be 'acc' for accelerando or 'rit' for ritardando.
+    """
+    if not tempo:
+        return True, None, None
+    
+    tempo_lower = tempo.lower().strip()
+    
+    # Check for transition markers
+    if tempo_lower in ('acc', 'accel', 'accelerando'):
+        return True, None, 'acc'
+    if tempo_lower in ('rit', 'ritard', 'ritardando'):
+        return True, None, 'rit'
+    
+    # Check for numeric tempo
     try:
         tempo_int = int(tempo)
         if 20 <= tempo_int <= 300:
-            return True, tempo_int
-        return False, None
+            return True, tempo_int, None
+        return False, None, None
     except (ValueError, TypeError):
-        return False, None
+        return False, None, None
 
 
 def parse_csv(csv_path: str) -> List[Dict]:
@@ -125,10 +141,10 @@ def process_bars_data(bars_data: List[Dict]) -> Dict:
     
     for bar in bars_data:
         if bar['tempo'] and default_tempo is None:
-            is_valid, tempo_val = validate_tempo(bar['tempo'])
-            if is_valid:
+            is_valid, tempo_val, transition = validate_tempo(bar['tempo'])
+            if is_valid and tempo_val is not None:
                 default_tempo = tempo_val
-            else:
+            elif not is_valid:
                 raise ValueError(f"Invalid tempo '{bar['tempo']}' at bar {bar['bar_number']}")
         
         if bar['time_signature'] and first_time_signature is None:
@@ -210,20 +226,24 @@ def process_bars_data(bars_data: List[Dict]) -> Dict:
                 'timeSignature': time_sig_obj
             })
         
-        # Track tempo changes
+        # Track tempo changes and transitions
         if bar['tempo']:
-            is_valid, tempo_val = validate_tempo(bar['tempo'])
+            is_valid, tempo_val, transition = validate_tempo(bar['tempo'])
             if not is_valid:
-                raise ValueError(f"Invalid tempo '{bar['tempo']}' at bar {bar_num}")
+                raise ValueError(f"Invalid tempo '{bar['tempo']}' at bar {bar_num}. Use a number (20-300) or 'acc'/'rit' for transitions.")
             
             tempo_change = {
                 'id': generate_uuid(),
                 'bar': bar_num,
-                'tempo': tempo_val
+                'transition': transition if transition else 'none'
             }
             
-            # Add text marking if present
-            if bar['text_marking']:
+            # Add tempo if it's a numeric value (not a transition-only bar)
+            if tempo_val is not None:
+                tempo_change['tempo'] = tempo_val
+            
+            # Add text marking if present (only for bars with actual tempo)
+            if bar['text_marking'] and tempo_val is not None:
                 tempo_change['marking'] = bar['text_marking']
             
             tempo_changes.append(tempo_change)

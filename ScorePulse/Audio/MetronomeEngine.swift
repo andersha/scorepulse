@@ -277,7 +277,7 @@ class MetronomeEngine: ObservableObject {
     }
     
     /// Start score playback with changing time signatures and tempi
-    func startScorePlayback(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, onPositionUpdate: @escaping (Int, Int) -> Void) {
+    func startScorePlayback(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, countIn: Bool = false, onPositionUpdate: @escaping (Int, Int, Int) -> Void) {
         stop()
         
         playbackTask = Task { @MainActor in
@@ -285,63 +285,73 @@ class MetronomeEngine: ObservableObject {
                 self.isPlaying = true
             }
             
+            // Play count-in bar if enabled
+            if countIn {
+                await playCountInBar(
+                    score: score,
+                    startBar: startBar,
+                    tempoMultiplier: tempoMultiplier,
+                    subdivision: subdivision,
+                    onPositionUpdate: onPositionUpdate
+                )
+            }
+            
+            if Task.isCancelled { return }
+            
             var barNumber = startBar
             
             while barNumber <= score.totalBars && !Task.isCancelled {
                 let timeSignature = score.timeSignature(at: barNumber)
-                let baseTempo = score.tempo(at: barNumber)
-                let effectiveTempo = Int(Double(baseTempo) * tempoMultiplier)
+                let isInTransition = score.isInTransition(at: barNumber)
                 
                 // For /8 meters with groupings (both compound and irregular)
                 let isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
                 // For /16 meters (always grouped, pattern required)
                 let isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
                 
-                // Calculate durations: tempo marking is always for quarter notes
-                let quarterNoteDuration = 60.0 / Double(effectiveTempo)
-                let eighthNoteDuration = quarterNoteDuration / 2.0
-                let sixteenthNoteDuration = quarterNoteDuration / 4.0
-                let beatDuration = quarterNoteDuration
-                
-                let clickDuration: Double
-                let totalClicksPerBar: Int
-                
                 // Use actual beats per bar (handles compound time like 6/8)
                 let actualBeats = timeSignature.actualBeatsPerBar
                 
+                let totalClicksPerBar: Int
                 switch subdivision {
                 case .quarter:
-                    if isSixteenth {
-                        // For /16 meters: play one click per group
-                        clickDuration = sixteenthNoteDuration
-                        totalClicksPerBar = actualBeats
-                    } else if isGroupedEighth {
-                        // For /8 meters: play one click per group
-                        clickDuration = eighthNoteDuration
+                    if isSixteenth || isGroupedEighth {
                         totalClicksPerBar = actualBeats
                     } else {
-                        clickDuration = beatDuration
                         totalClicksPerBar = actualBeats
                     }
                 case .eighth:
                     if isSixteenth {
-                        // For /16 meters: same as quarter mode
-                        clickDuration = sixteenthNoteDuration
                         totalClicksPerBar = actualBeats
                     } else if isGroupedEighth {
-                        // Play all eighth notes at eighth note tempo
-                        clickDuration = eighthNoteDuration
                         totalClicksPerBar = timeSignature.beatsPerBar
                     } else {
-                        clickDuration = beatDuration / 2.0
                         totalClicksPerBar = actualBeats * 2
                     }
                 }
                 
                 // Play all clicks in this bar
-                var lastClickDuration: Double = clickDuration
+                var lastClickDuration: Double = 0
                 for clickIndex in 0..<totalClicksPerBar {
                     if Task.isCancelled { break }
+                    
+                    // Calculate beat progress for tempo interpolation during transitions
+                    let beatProgress = Double(clickIndex) / Double(totalClicksPerBar)
+                    
+                    // Get tempo for this beat (interpolated if in transition)
+                    let baseTempo: Int
+                    if isInTransition {
+                        baseTempo = score.tempo(at: barNumber, beatProgress: beatProgress)
+                    } else {
+                        baseTempo = score.tempo(at: barNumber)
+                    }
+                    let effectiveTempo = Int(Double(baseTempo) * tempoMultiplier)
+                    
+                    // Calculate durations based on current tempo
+                    let quarterNoteDuration = 60.0 / Double(effectiveTempo)
+                    let eighthNoteDuration = quarterNoteDuration / 2.0
+                    let sixteenthNoteDuration = quarterNoteDuration / 4.0
+                    let beatDuration = quarterNoteDuration
                     
                     // Determine click type and duration
                     let clickType: ClickType
@@ -353,7 +363,7 @@ class MetronomeEngine: ObservableObject {
                         if let pattern = timeSignature.effectiveAccentPattern {
                             currentClickDuration = sixteenthNoteDuration * Double(pattern[clickIndex])
                         } else {
-                            currentClickDuration = clickDuration
+                            currentClickDuration = sixteenthNoteDuration
                         }
                     } else if timeSignature.hasGroupings && subdivision == .quarter {
                         // Quarter mode for /8 meters: one click per group
@@ -361,10 +371,14 @@ class MetronomeEngine: ObservableObject {
                         if let pattern = timeSignature.effectiveAccentPattern {
                             currentClickDuration = eighthNoteDuration * Double(pattern[clickIndex])
                         } else {
-                            currentClickDuration = clickDuration
+                            currentClickDuration = eighthNoteDuration
                         }
                     } else if subdivision == .eighth {
-                        currentClickDuration = clickDuration
+                        if isGroupedEighth {
+                            currentClickDuration = eighthNoteDuration
+                        } else {
+                            currentClickDuration = beatDuration / 2.0
+                        }
                         // Eighth mode: 3-tier system
                         if clickIndex == 0 {
                             clickType = .downbeat
@@ -377,7 +391,7 @@ class MetronomeEngine: ObservableObject {
                         }
                     } else {
                         // Quarter mode for simple time
-                        currentClickDuration = clickDuration
+                        currentClickDuration = beatDuration
                         clickType = clickIndex == 0 ? .downbeat : .offbeat
                     }
                     
@@ -404,8 +418,10 @@ class MetronomeEngine: ObservableObject {
                         beatNumber = (clickIndex / 2) + 1
                     }
                     
+                    // Pass current effective tempo to callback
+                    let displayTempo = Int(Double(baseTempo) * tempoMultiplier)
                     await MainActor.run {
-                        onPositionUpdate(barNumber, beatNumber)
+                        onPositionUpdate(barNumber, beatNumber, displayTempo)
                     }
                     
                     if clickIndex < totalClicksPerBar - 1 {
@@ -422,6 +438,95 @@ class MetronomeEngine: ObservableObject {
             await MainActor.run {
                 self.isPlaying = false
             }
+        }
+    }
+    
+    /// Play a count-in bar before starting score playback
+    private func playCountInBar(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, onPositionUpdate: @escaping (Int, Int, Int) -> Void) async {
+        let timeSignature = score.timeSignature(at: startBar)
+        let baseTempo = score.tempo(at: startBar)
+        let effectiveTempo = Int(Double(baseTempo) * tempoMultiplier)
+        
+        // Calculate durations
+        let quarterNoteDuration = 60.0 / Double(effectiveTempo)
+        let eighthNoteDuration = quarterNoteDuration / 2.0
+        let sixteenthNoteDuration = quarterNoteDuration / 4.0
+        
+        let isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
+        let isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
+        let actualBeats = timeSignature.actualBeatsPerBar
+        
+        let totalClicksPerBar: Int
+        switch subdivision {
+        case .quarter:
+            totalClicksPerBar = actualBeats
+        case .eighth:
+            if isSixteenth {
+                totalClicksPerBar = actualBeats
+            } else if isGroupedEighth {
+                totalClicksPerBar = timeSignature.beatsPerBar
+            } else {
+                totalClicksPerBar = actualBeats * 2
+            }
+        }
+        
+        // Play count-in clicks
+        for clickIndex in 0..<totalClicksPerBar {
+            if Task.isCancelled { break }
+            
+            let clickType: ClickType = clickIndex == 0 ? .downbeat : .offbeat
+            let currentClickDuration: Double
+            
+            if isSixteenth {
+                if let pattern = timeSignature.effectiveAccentPattern {
+                    currentClickDuration = sixteenthNoteDuration * Double(pattern[clickIndex])
+                } else {
+                    currentClickDuration = sixteenthNoteDuration
+                }
+            } else if isGroupedEighth && subdivision == .quarter {
+                if let pattern = timeSignature.effectiveAccentPattern {
+                    currentClickDuration = eighthNoteDuration * Double(pattern[clickIndex])
+                } else {
+                    currentClickDuration = eighthNoteDuration
+                }
+            } else if subdivision == .eighth {
+                if isGroupedEighth {
+                    currentClickDuration = eighthNoteDuration
+                } else {
+                    currentClickDuration = quarterNoteDuration / 2.0
+                }
+            } else {
+                currentClickDuration = quarterNoteDuration
+            }
+            
+            self.playClick(type: clickType)
+            
+            // Calculate beat number (same logic as main playback)
+            let beatNumber: Int
+            if isSixteenth || (isGroupedEighth && subdivision == .quarter) {
+                beatNumber = clickIndex + 1
+            } else if isGroupedEighth && subdivision == .eighth {
+                let accentPositions = timeSignature.accentPositions()
+                var beatNum = 1
+                for (idx, pos) in accentPositions.enumerated() {
+                    if clickIndex >= pos {
+                        beatNum = idx + 1
+                    }
+                }
+                beatNumber = beatNum
+            } else if subdivision == .quarter {
+                beatNumber = clickIndex + 1
+            } else {
+                // Eighth mode for simple time: show beat number, not click number
+                beatNumber = (clickIndex / 2) + 1
+            }
+            
+            // Don't update bar number during count-in (pass -1 to signal count-in)
+            await MainActor.run {
+                onPositionUpdate(-1, beatNumber, effectiveTempo)
+            }
+            
+            try? await Task.sleep(nanoseconds: UInt64(currentClickDuration * 1_000_000_000))
         }
     }
     
