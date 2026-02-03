@@ -11,6 +11,7 @@ struct ScorePlayerView: View {
     @State private var subdivision = SubdivisionMode.quarter
     @State private var rehearsalMode = false
     @State private var countIn = true  // Count one bar before starting
+    @State private var isCountingIn = false  // True during count-in bar
     @State private var playStartBar = 1  // The bar we started playing from
     @State private var showingBarInput = false
     @State private var barInputText = ""
@@ -51,12 +52,12 @@ struct ScorePlayerView: View {
                 HStack(spacing: 16) {
                     // Visual beat indicator
                     Circle()
-                        .fill(beatPulse ? Color.green : Color.gray.opacity(0.3))
+                        .fill(beatPulse ? (isCountingIn ? Color.blue : Color.green) : Color.gray.opacity(0.3))
                         .frame(width: 80, height: 80)
                         .animation(.easeInOut(duration: 0.1), value: beatPulse)
                         .overlay(
                             VStack {
-                                Text("Beat")
+                                Text(isCountingIn ? "Count-in" : "Beat")
                                     .font(.caption2)
                                     .foregroundColor(.white)
                                 Text("\(currentBeat)")
@@ -131,22 +132,26 @@ struct ScorePlayerView: View {
                 
                 // Navigation controls
                 VStack(spacing: 8) {
-                    HStack(spacing: 8) {
+                    HStack {
                         Button(action: goToPreviousMark) {
                             Label("Prev", systemImage: "chevron.left")
-                                .font(.caption)
+                                .font(.body)
                         }
                         .disabled(score.previousRehearsalMark(before: currentBar) == nil || engine.isPlaying)
                         
+                        Spacer()
+                        
                         Button(action: { showingBarInput = true }) {
                             Label("Go to Bar", systemImage: "music.note.list")
-                                .font(.caption)
+                                .font(.body)
                         }
                         .disabled(engine.isPlaying)
                         
+                        Spacer()
+                        
                         Button(action: goToNextMark) {
                             Label("Next", systemImage: "chevron.right")
-                                .font(.caption)
+                                .font(.body)
                         }
                         .disabled(score.nextRehearsalMark(after: currentBar) == nil || engine.isPlaying)
                     }
@@ -255,6 +260,7 @@ struct ScorePlayerView: View {
         if engine.isPlaying {
             engine.stop()
             currentDisplayTempo = nil  // Reset to calculated tempo
+            isCountingIn = false
             if rehearsalMode {
                 // Return to where we started
                 currentBar = playStartBar
@@ -271,6 +277,7 @@ struct ScorePlayerView: View {
                 countIn: countIn
             ) { bar, beat, tempo in
                 // bar == -1 means count-in, don't update bar position
+                isCountingIn = (bar < 0)
                 if bar >= 0 {
                     currentBar = bar
                 }

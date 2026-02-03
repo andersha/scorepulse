@@ -17,18 +17,19 @@
 		AA0000010000000000000008 /* MetronomeEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000008 /* MetronomeEngine.swift */; };
 		AA0000010000000000000009 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB0000010000000000000009 /* MetronomeView.swift */; };
 		AA000001000000000000000A /* ScoreListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000A /* ScoreListView.swift */; };
-		ACA3A02CA8F70C08EC1520FF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2CD0A6AC564E933AAC8272 /* AboutView.swift */; };
 		AA000001000000000000000B /* ScorePlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000B /* ScorePlayerView.swift */; };
 		AA000001000000000000000C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000C /* Assets.xcassets */; };
 		AA000001000000000000000D /* bundled-scores.json in Resources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000D /* bundled-scores.json */; };
+		ACA3A02CA8F70C08EC1520FF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2CD0A6AC564E933AAC8272 /* AboutView.swift */; };
 		C5C4178166FD2273779E925B /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */; };
 		F6705638B70120A08DBA8651 /* ScoreStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScoreStorageManager.swift; sourceTree = "<group>"; };
-		AA00000200000000000000FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
+		AA00000200000000000000FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AB2CD0A6AC564E933AAC8272 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		BB0000010000000000000000 /* ScorePulse.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ScorePulse.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0000010000000000000001 /* ScorePulseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePulseApp.swift; sourceTree = "<group>"; };
 		BB0000010000000000000002 /* TimeSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignature.swift; sourceTree = "<group>"; };
@@ -40,7 +41,6 @@
 		BB0000010000000000000008 /* MetronomeEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeEngine.swift; sourceTree = "<group>"; };
 		BB0000010000000000000009 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000A /* ScoreListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreListView.swift; sourceTree = "<group>"; };
-		AB2CD0A6AC564E933AAC8272 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000B /* ScorePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePlayerView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB000001000000000000000D /* bundled-scores.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bundled-scores.json"; sourceTree = "<group>"; };
@@ -157,7 +157,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1500;
-				LastUpgradeCheck = 1500;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					EE0000010000000000000001 = {
 						CreatedOnToolsVersion = 15.0;
@@ -254,6 +254,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = HM9572KML7;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -277,6 +278,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -317,6 +319,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = HM9572KML7;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
@@ -333,6 +336,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -346,7 +350,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = HM9572KML7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ScorePulse/Info.plist;
@@ -378,7 +381,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = HM9572KML7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = ScorePulse/Info.plist;
