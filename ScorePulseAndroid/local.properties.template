@@ -1,0 +1,3 @@
+# SDK location - uncomment and set to your Android SDK path
+# sdk.dir=/Users/YOUR_USERNAME/Library/Android/sdk
+# Or set ANDROID_HOME environment variable

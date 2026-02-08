@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Gradle wrapper script for command-line builds
+# This will download Gradle if not already present
+
+GRADLE_VERSION=8.13
+
+# Determine the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Set GRADLE_USER_HOME if not set
+GRADLE_USER_HOME="${GRADLE_USER_HOME:-$HOME/.gradle}"
+
+# Check if Gradle is available
+if command -v gradle &> /dev/null; then
+    gradle "$@"
+elif [ -f "$GRADLE_USER_HOME/wrapper/dists/gradle-${GRADLE_VERSION}-bin/*/gradle-${GRADLE_VERSION}/bin/gradle" ]; then
+    # Use cached Gradle
+    GRADLE_BIN=$(find "$GRADLE_USER_HOME/wrapper/dists/gradle-${GRADLE_VERSION}-bin" -name gradle -type f | head -1)
+    "$GRADLE_BIN" "$@"
+else
+    echo "Downloading Gradle $GRADLE_VERSION..."
+    TEMP_DIR=$(mktemp -d)
+    curl -sL "https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip" -o "$TEMP_DIR/gradle.zip"
+    mkdir -p "$GRADLE_USER_HOME/wrapper/dists/gradle-${GRADLE_VERSION}-bin/manual"
+    unzip -o -q "$TEMP_DIR/gradle.zip" -d "$GRADLE_USER_HOME/wrapper/dists/gradle-${GRADLE_VERSION}-bin/manual"
+    rm -rf "$TEMP_DIR"
+    "$GRADLE_USER_HOME/wrapper/dists/gradle-${GRADLE_VERSION}-bin/manual/gradle-${GRADLE_VERSION}/bin/gradle" "$@"
+fi

@@ -1,0 +1,266 @@
+{
+  "scores": [
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440001",
+      "title": "Symphony No. 5",
+      "composer": "Ludwig van Beethoven",
+      "defaultTempo": 108,
+      "tempoChanges": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440011",
+          "bar": 1,
+          "tempo": 108,
+          "marking": "Allegro con brio"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440012",
+          "bar": 125,
+          "tempo": 96,
+          "marking": "Poco ritenuto"
+        }
+      ],
+      "rehearsalMarks": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440021",
+          "name": "A",
+          "bar": 1
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440022",
+          "name": "B",
+          "bar": 63
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440023",
+          "name": "C",
+          "bar": 125
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440024",
+          "name": "D",
+          "bar": 196
+        }
+      ],
+      "bars": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440031",
+          "number": 1,
+          "timeSignature": "2/4"
+        }
+      ],
+      "totalBars": 248
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440002",
+      "title": "The Blue Danube",
+      "composer": "Johann Strauss II",
+      "defaultTempo": 150,
+      "tempoChanges": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440041",
+          "bar": 1,
+          "tempo": 150,
+          "marking": "Tempo di Valse"
+        }
+      ],
+      "rehearsalMarks": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440051",
+          "name": "1",
+          "bar": 1
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440052",
+          "name": "2",
+          "bar": 37
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440053",
+          "name": "3",
+          "bar": 69
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440054",
+          "name": "4",
+          "bar": 101
+        }
+      ],
+      "bars": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440061",
+          "number": 1,
+          "timeSignature": "3/4"
+        }
+      ],
+      "totalBars": 168
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440003",
+      "title": "Take Five",
+      "composer": "Paul Desmond",
+      "defaultTempo": 174,
+      "tempoChanges": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440071",
+          "bar": 1,
+          "tempo": 174,
+          "marking": "Allegro"
+        }
+      ],
+      "rehearsalMarks": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440081",
+          "name": "Intro",
+          "bar": 1
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440082",
+          "name": "Head",
+          "bar": 9
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440083",
+          "name": "Solo",
+          "bar": 25
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440084",
+          "name": "Outro",
+          "bar": 57
+        }
+      ],
+      "bars": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440091",
+          "number": 1,
+          "timeSignature": "5/4"
+        }
+      ],
+      "totalBars": 64
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440004",
+      "title": "Complex Example",
+      "composer": "Test Composer",
+      "defaultTempo": 120,
+      "tempoChanges": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440101",
+          "bar": 1,
+          "tempo": 120,
+          "marking": "Moderato"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440102",
+          "bar": 17,
+          "tempo": 140,
+          "marking": "Allegro"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440103",
+          "bar": 33,
+          "tempo": 80,
+          "marking": "Adagio"
+        }
+      ],
+      "rehearsalMarks": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440111",
+          "name": "A",
+          "bar": 1
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440112",
+          "name": "B",
+          "bar": 17
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440113",
+          "name": "C",
+          "bar": 33
+        }
+      ],
+      "bars": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440121",
+          "number": 1,
+          "timeSignature": "4/4"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440122",
+          "number": 17,
+          "timeSignature": "3/4"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440123",
+          "number": 25,
+          "timeSignature": "6/8"
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440124",
+          "number": 33,
+          "timeSignature": "4/4"
+        }
+      ],
+      "totalBars": 48
+    },
+    {
+      "id": "550e8400-e29b-41d4-a716-446655440005",
+      "title": "Irregular Meters Example",
+      "composer": "Test Composer",
+      "defaultTempo": 120,
+      "tempoChanges": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440131",
+          "bar": 1,
+          "tempo": 120,
+          "marking": "Moderato"
+        }
+      ],
+      "rehearsalMarks": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440141",
+          "name": "A",
+          "bar": 1
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440142",
+          "name": "B",
+          "bar": 9
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440143",
+          "name": "C",
+          "bar": 17
+        }
+      ],
+      "bars": [
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440151",
+          "number": 1,
+          "timeSignature": {
+            "timeSignature": "5/8",
+            "accentPattern": [2, 3]
+          }
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440152",
+          "number": 9,
+          "timeSignature": {
+            "timeSignature": "7/8",
+            "accentPattern": [2, 2, 3]
+          }
+        },
+        {
+          "id": "550e8400-e29b-41d4-a716-446655440153",
+          "number": 17,
+          "timeSignature": {
+            "timeSignature": "7/8",
+            "accentPattern": [3, 2, 2]
+          }
+        }
+      ],
+      "totalBars": 24
+    }
+  ]
+}
