@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV Format Guide - ScorePulse</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --accent: #0f3460;
+            --primary: #e94560;
+            --text: #eee;
+            --text-muted: #aaa;
+            --success: #4ade80;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: var(--primary); margin-bottom: 0.5rem; }
+        h2 { color: var(--primary); margin: 2rem 0 1rem; font-size: 1.3rem; }
+        h3 { color: var(--text); margin: 1.5rem 0 0.75rem; font-size: 1.1rem; }
+        .subtitle { color: var(--text-muted); margin-bottom: 2rem; }
+        p { margin-bottom: 1rem; color: var(--text-muted); }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        code {
+            background: var(--accent);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9rem;
+        }
+        pre {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            margin: 1rem 0;
+        }
+        pre code { background: none; padding: 0; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--accent);
+        }
+        th { color: var(--primary); font-weight: 600; }
+        td { color: var(--text-muted); }
+        .required { color: var(--primary); font-weight: bold; }
+        .optional { color: var(--success); }
+        ul, ol { margin: 1rem 0 1rem 1.5rem; color: var(--text-muted); }
+        li { margin-bottom: 0.5rem; }
+        .tip {
+            background: rgba(74, 222, 128, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .warning {
+            background: rgba(248, 113, 113, 0.1);
+            border-left: 4px solid #f87171;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 8px 8px 0;
+        }
+        .links { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--accent); }
+        .links a { color: var(--primary); margin-right: 1.5rem; text-decoration: none; }
+        .links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📖 CSV Format Guide</h1>
+        <p class="subtitle">Complete reference for creating ScorePulse score files</p>
+
+        <div class="card">
+            <h2>Overview</h2>
+            <p>ScorePulse uses a <strong>sparse data model</strong> where you only specify bars where something changes. You don't need to list every bar—just the ones where tempo, time signature, or rehearsal marks change.</p>
+            <p>The CSV file uses <strong>semicolon (;) delimiters</strong>, not commas. This allows commas to be used in text fields.</p>
+        </div>
+
+        <div class="card">
+            <h2>CSV Structure</h2>
+            <p>The first row must be the header row with these exact column names:</p>
+            <pre><code>BAR NUMBER;TIME SIGNATURE;DIVISION;TEMPO;REHEARSAL MARKING;TEXT MARKING</code></pre>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Column</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>BAR NUMBER</code></td>
+                        <td class="required">Yes</td>
+                        <td>Sequential integer starting from 1. Every bar must be listed.</td>
+                    </tr>
+                    <tr>
+                        <td><code>TIME SIGNATURE</code></td>
+                        <td class="optional">When changes</td>
+                        <td>Format: <code>4/4</code>, <code>3/4</code>, <code>6/8</code>, <code>7/8</code>, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><code>DIVISION</code></td>
+                        <td class="optional">For irregular meters</td>
+                        <td>Accent pattern like <code>2+2+3</code> for 7/8 time</td>
+                    </tr>
+                    <tr>
+                        <td><code>TEMPO</code></td>
+                        <td class="optional">When changes</td>
+                        <td>BPM (20-300) or transition: <code>acc</code>, <code>rit</code></td>
+                    </tr>
+                    <tr>
+                        <td><code>REHEARSAL MARKING</code></td>
+                        <td class="optional">Optional</td>
+                        <td>Letter or number: <code>A</code>, <code>B</code>, <code>1</code>, <code>42</code>, etc.</td>
+                    </tr>
+                    <tr>
+                        <td><code>TEXT MARKING</code></td>
+                        <td class="optional">Optional</td>
+                        <td>Tempo text: <code>Allegro</code>, <code>Andante</code>, etc.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <h2>Column Details</h2>
+
+            <h3>BAR NUMBER</h3>
+            <p>Must be sequential integers starting from 1. Every bar in your piece must have a row, even if all other columns are empty.</p>
+            <pre><code>1;4/4;;120;A;Moderato
+2;;;;;
+3;;;;;
+4;3/4;;;;
+5;;;;;</code></pre>
+
+            <h3>TIME SIGNATURE</h3>
+            <p>Standard notation with numerator/denominator. Only specify when it changes.</p>
+            <p>Supported formats:</p>
+            <ul>
+                <li>Simple meters: <code>4/4</code>, <code>3/4</code>, <code>2/4</code>, <code>5/4</code></li>
+                <li>Compound meters: <code>6/8</code>, <code>9/8</code>, <code>12/8</code></li>
+                <li>Irregular meters: <code>5/8</code>, <code>7/8</code>, <code>11/8</code></li>
+                <li>Cut time: <code>2/2</code>, <code>3/2</code></li>
+                <li>Sixteenth meters: <code>7/16</code>, <code>11/16</code> (requires DIVISION)</li>
+            </ul>
+
+            <h3>DIVISION (Accent Pattern)</h3>
+            <p>For irregular meters, specify how beats are grouped using <code>+</code> notation:</p>
+            <ul>
+                <li><code>7/8</code> → <code>2+2+3</code> or <code>3+2+2</code> or <code>2+3+2</code></li>
+                <li><code>5/8</code> → <code>2+3</code> or <code>3+2</code></li>
+                <li><code>11/8</code> → <code>3+3+3+2</code> or <code>2+3+3+3</code></li>
+            </ul>
+            <div class="warning">
+                <strong>Important:</strong> The division must sum to the time signature numerator. For <code>7/8</code>, divisions must sum to 7.
+            </div>
+            <div class="tip">
+                <strong>Tip:</strong> Sixteenth-note meters (<code>/16</code>) always require a division to be specified.
+            </div>
+
+            <h3>TEMPO</h3>
+            <p>Specify tempo in BPM (beats per minute), or use transition markers:</p>
+            <table>
+                <thead>
+                    <tr><th>Value</th><th>Meaning</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>120</code></td><td>Set tempo to 120 BPM</td></tr>
+                    <tr><td><code>acc</code></td><td>Begin accelerando (gradual speed up to next tempo)</td></tr>
+                    <tr><td><code>rit</code></td><td>Begin ritardando (gradual slow down to next tempo)</td></tr>
+                </tbody>
+            </table>
+            <p>Tempo must be between 20 and 300 BPM.</p>
+
+            <h3>REHEARSAL MARKING</h3>
+            <p>Letters or numbers used by conductors to identify sections. Common formats:</p>
+            <ul>
+                <li>Letters: <code>A</code>, <code>B</code>, <code>C</code>...</li>
+                <li>Numbers: <code>1</code>, <code>2</code>, <code>3</code>...</li>
+                <li>Bar numbers: <code>9</code>, <code>25</code>, <code>42</code>...</li>
+            </ul>
+
+            <h3>TEXT MARKING</h3>
+            <p>Descriptive tempo/expression text that appears with tempo changes:</p>
+            <ul>
+                <li><code>Allegro</code>, <code>Andante</code>, <code>Adagio</code></li>
+                <li><code>Più mosso</code>, <code>Meno mosso</code></li>
+                <li><code>Maestoso</code>, <code>Cantabile</code></li>
+            </ul>
+            <div class="tip">
+                <strong>Note:</strong> Text markings only appear when there's also a tempo value (not for <code>acc</code>/<code>rit</code> transitions).
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Complete Example</h2>
+            <p>Here's a sample score with various features:</p>
+            <pre><code>BAR NUMBER;TIME SIGNATURE;DIVISION;TEMPO;REHEARSAL MARKING;TEXT MARKING
+1;4/4;;120;A;Moderato
+2;;;;;
+3;;;;;
+4;;;;;
+5;;;;;
+6;;;;;
+7;;;;;
+8;;;;;
+9;3/4;;;B;
+10;;;;;
+11;;;;;
+12;;;;;
+13;;;acc;;
+14;4/4;;140;;Allegro
+15;;;;;
+16;;;;;
+17;7/8;2+2+3;;C;
+18;;;;;
+19;;;;;
+20;;;;;
+21;;;rit;;
+22;;;100;D;Andante
+23;;;;;
+24;4/4;;;;
+25;;;;;</code></pre>
+
+            <p>This creates a score with:</p>
+            <ul>
+                <li>Starts in 4/4 at 120 BPM (Moderato)</li>
+                <li>Changes to 3/4 at bar 9 (rehearsal B)</li>
+                <li>Accelerando in bar 13, reaching 140 BPM (Allegro) at bar 14</li>
+                <li>Changes to 7/8 with 2+2+3 grouping at bar 17 (rehearsal C)</li>
+                <li>Ritardando in bar 21, settling at 100 BPM (Andante) at bar 22</li>
+                <li>Returns to 4/4 at bar 24</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Tips for Success</h2>
+            <ol>
+                <li><strong>Start with bar 1:</strong> The first bar must define at least a time signature and tempo.</li>
+                <li><strong>List every bar:</strong> Even empty bars need a row with just the bar number.</li>
+                <li><strong>Use semicolons:</strong> Not commas! Semicolons separate columns.</li>
+                <li><strong>Check your divisions:</strong> Make sure accent patterns sum to the time signature.</li>
+                <li><strong>Transitions need targets:</strong> After <code>acc</code> or <code>rit</code>, the next tempo bar is the target.</li>
+            </ol>
+        </div>
+
+        <div class="links">
+            <a href="converter.html">← Back to Converter</a>
+            <a href="template.csv" download>Download Template</a>
+            <a href="scores.html">Example Scores</a>
+        </div>
+    </div>
+</body>
+</html>

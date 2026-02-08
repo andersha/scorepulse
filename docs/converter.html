@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSV to ScorePulse Converter</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --accent: #0f3460;
+            --primary: #e94560;
+            --text: #eee;
+            --text-muted: #aaa;
+            --success: #4ade80;
+            --error: #f87171;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: var(--primary); margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-muted); margin-bottom: 2rem; }
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .card h2 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--text); }
+        .form-group { margin-bottom: 1rem; }
+        label { display: block; margin-bottom: 0.5rem; color: var(--text-muted); font-size: 0.9rem; }
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            background: var(--bg);
+            color: var(--text);
+            font-size: 1rem;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--primary); }
+        .file-drop {
+            border: 2px dashed var(--accent);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .file-drop:hover, .file-drop.dragover {
+            border-color: var(--primary);
+            background: rgba(233, 69, 96, 0.1);
+        }
+        .file-drop input { display: none; }
+        .file-drop p { color: var(--text-muted); }
+        .file-drop .icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .file-info { margin-top: 1rem; padding: 0.75rem; background: var(--accent); border-radius: 8px; }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+        .btn-secondary { background: var(--accent); color: var(--text); }
+        .btn-secondary:hover { background: #1a4a7a; }
+        .btn-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .output { margin-top: 1rem; }
+        .output pre {
+            background: var(--bg);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.85rem;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .status { padding: 0.75rem; border-radius: 8px; margin-top: 1rem; }
+        .status.success { background: rgba(74, 222, 128, 0.2); color: var(--success); }
+        .status.error { background: rgba(248, 113, 113, 0.2); color: var(--error); }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .stat { text-align: center; padding: 1rem; background: var(--accent); border-radius: 8px; }
+        .stat-value { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+        .stat-label { font-size: 0.8rem; color: var(--text-muted); }
+        .links { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--accent); }
+        .links a { color: var(--primary); margin-right: 1.5rem; }
+        @media (max-width: 600px) {
+            body { padding: 1rem; }
+            .btn-group { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 CSV to ScorePulse Converter</h1>
+        <p class="subtitle">Convert your CSV score data into .scorepulse files for the ScorePulse app</p>
+
+        <div class="card">
+            <h2>📥 Step 1: Download Template</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1rem;">
+                Download the CSV template, fill it out with your score data, then upload it below.
+            </p>
+            <div class="btn-group">
+                <a href="template.csv" download class="btn btn-secondary">Download CSV Template</a>
+                <a href="csv-format-guide.html" class="btn btn-secondary">View Format Guide</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📝 Step 2: Score Information</h2>
+            <div class="form-group">
+                <label for="title">Title *</label>
+                <input type="text" id="title" placeholder="e.g., Symphony No. 5" required>
+            </div>
+            <div class="form-group">
+                <label for="composer">Composer *</label>
+                <input type="text" id="composer" placeholder="e.g., Ludwig van Beethoven" required>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>📁 Step 3: Upload CSV File</h2>
+            <div class="file-drop" id="dropZone">
+                <input type="file" id="fileInput" accept=".csv">
+                <div class="icon">📄</div>
+                <p>Drag & drop your CSV file here, or click to browse</p>
+            </div>
+            <div class="file-info" id="fileInfo" style="display: none;"></div>
+        </div>
+
+        <div class="card">
+            <h2>⚡ Step 4: Convert</h2>
+            <button class="btn btn-primary" id="convertBtn" disabled>Convert to ScorePulse</button>
+            
+            <div id="statusArea"></div>
+            <div id="statsArea"></div>
+            
+            <div class="output" id="outputArea" style="display: none;">
+                <h3 style="margin-bottom: 0.5rem;">Generated JSON:</h3>
+                <pre id="outputJson"></pre>
+                <div class="btn-group" style="margin-top: 1rem;">
+                    <button class="btn btn-primary" id="downloadBtn">Download .scorepulse File</button>
+                    <button class="btn btn-secondary" id="copyBtn">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="links">
+            <a href="index.html">← Back to Documentation</a>
+            <a href="scores.html">Example Scores</a>
+            <a href="privacy-policy.html">Privacy Policy</a>
+        </div>
+    </div>
+
+    <script>
+        // CSV to ScorePulse Converter - Client-side JavaScript
+        
+        let csvContent = null;
+        let generatedScore = null;
+
+        // DOM elements
+        const dropZone = document.getElementById('dropZone');
+        const fileInput = document.getElementById('fileInput');
+        const fileInfo = document.getElementById('fileInfo');
+        const titleInput = document.getElementById('title');
+        const composerInput = document.getElementById('composer');
+        const convertBtn = document.getElementById('convertBtn');
+        const statusArea = document.getElementById('statusArea');
+        const statsArea = document.getElementById('statsArea');
+        const outputArea = document.getElementById('outputArea');
+        const outputJson = document.getElementById('outputJson');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const copyBtn = document.getElementById('copyBtn');
+
+        // File handling
+        dropZone.addEventListener('click', () => fileInput.click());
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('dragover');
+        });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+        });
+        fileInput.addEventListener('change', (e) => {
+            if (e.target.files.length) handleFile(e.target.files[0]);
+        });
+
+        function handleFile(file) {
+            if (!file.name.endsWith('.csv')) {
+                showStatus('Please upload a .csv file', 'error');
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                csvContent = e.target.result;
+                fileInfo.style.display = 'block';
+                fileInfo.textContent = `✓ Loaded: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                checkCanConvert();
+            };
+            reader.readAsText(file);
+        }
+
+        // Enable convert button when ready
+        [titleInput, composerInput].forEach(el => el.addEventListener('input', checkCanConvert));
+        
+        function checkCanConvert() {
+            convertBtn.disabled = !(csvContent && titleInput.value.trim() && composerInput.value.trim());
+        }
+
+        // UUID generator
+        function generateUUID() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+                const r = Math.random() * 16 | 0;
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+        }
+
+        // Validation functions
+        function validateTimeSignature(ts) {
+            if (!ts) return false;
+            return /^\d+\/\d+$/.test(ts);
+        }
+
+        function parseDivision(division) {
+            if (!division || !division.trim()) return null;
+            try {
+                const parts = division.trim().split('+');
+                const pattern = parts.map(p => parseInt(p.trim()));
+                if (pattern.every(p => p > 0)) return pattern;
+                return null;
+            } catch {
+                return null;
+            }
+        }
+
+        function validateDivision(division, timeSignature) {
+            const parts = timeSignature.split('/');
+            const numerator = parseInt(parts[0]);
+            const sum = division.reduce((a, b) => a + b, 0);
+            if (sum !== numerator) {
+                return `Division '${division.join('+')}' sums to ${sum}, but time signature '${timeSignature}' requires ${numerator}`;
+            }
+            return null;
+        }
+
+        function validateTempo(tempo) {
+            if (!tempo) return { valid: true, value: null, transition: null };
+            const t = tempo.toLowerCase().trim();
+            if (['acc', 'accel', 'accelerando'].includes(t)) return { valid: true, value: null, transition: 'acc' };
+            if (['rit', 'ritard', 'ritardando'].includes(t)) return { valid: true, value: null, transition: 'rit' };
+            const num = parseInt(tempo);
+            if (!isNaN(num) && num >= 20 && num <= 300) return { valid: true, value: num, transition: null };
+            return { valid: false, value: null, transition: null };
+        }
+
+        // Parse CSV
+        function parseCSV(content) {
+            const lines = content.trim().split(/\r?\n/);
+            if (lines.length < 2) throw new Error('CSV must have a header row and at least one data row');
+
+            const headers = lines[0].split(';').map(h => h.trim().toUpperCase());
+            const requiredHeaders = ['BAR NUMBER', 'TIME SIGNATURE', 'DIVISION', 'TEMPO', 'REHEARSAL MARKING', 'TEXT MARKING'];
+            
+            const headerMap = {};
+            requiredHeaders.forEach(h => {
+                const idx = headers.indexOf(h);
+                if (idx === -1) throw new Error(`Missing required header: ${h}`);
+                headerMap[h] = idx;
+            });
+
+            const barsData = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                
+                const cols = line.split(';');
+                const barNum = parseInt(cols[headerMap['BAR NUMBER']]?.trim());
+                if (isNaN(barNum)) continue;
+
+                barsData.push({
+                    bar_number: barNum,
+                    time_signature: cols[headerMap['TIME SIGNATURE']]?.trim() || '',
+                    division: cols[headerMap['DIVISION']]?.trim() || '',
+                    tempo: cols[headerMap['TEMPO']]?.trim() || '',
+                    rehearsal_marking: cols[headerMap['REHEARSAL MARKING']]?.trim() || '',
+                    text_marking: cols[headerMap['TEXT MARKING']]?.trim() || ''
+                });
+            }
+
+            barsData.sort((a, b) => a.bar_number - b.bar_number);
+            return barsData;
+        }
+
+        // Process bar data into score structure
+        function processBarsData(barsData) {
+            if (!barsData.length) throw new Error('No valid bar data found in CSV');
+
+            // Validate sequential bar numbers
+            for (let i = 0; i < barsData.length; i++) {
+                if (barsData[i].bar_number !== i + 1) {
+                    throw new Error(`Bar numbers must be sequential starting from 1. Expected ${i + 1}, got ${barsData[i].bar_number}`);
+                }
+            }
+
+            let defaultTempo = null;
+            let firstTimeSignature = null;
+
+            // Find first tempo and time signature
+            for (const bar of barsData) {
+                if (bar.tempo && defaultTempo === null) {
+                    const result = validateTempo(bar.tempo);
+                    if (result.valid && result.value !== null) defaultTempo = result.value;
+                    else if (!result.valid) throw new Error(`Invalid tempo '${bar.tempo}' at bar ${bar.bar_number}`);
+                }
+                if (bar.time_signature && firstTimeSignature === null) {
+                    if (validateTimeSignature(bar.time_signature)) firstTimeSignature = bar.time_signature;
+                    else throw new Error(`Invalid time signature '${bar.time_signature}' at bar ${bar.bar_number}`);
+                }
+                if (defaultTempo && firstTimeSignature) break;
+            }
+
+            if (!defaultTempo) throw new Error('No tempo found. At least one bar must have a tempo value.');
+            if (!firstTimeSignature) throw new Error('No time signature found. At least one bar must have a time signature.');
+
+            const bars = [];
+            const tempoChanges = [];
+            const rehearsalMarks = [];
+            let currentTimeSignature = null;
+            let currentAccentPattern = null;
+
+            for (const bar of barsData) {
+                const barNum = bar.bar_number;
+                let accentPattern = null;
+
+                // Parse division
+                if (bar.division) {
+                    accentPattern = parseDivision(bar.division);
+                    if (!accentPattern) throw new Error(`Invalid division '${bar.division}' at bar ${barNum}. Use format like '2+3' or '2+2+3'`);
+                }
+
+                // Track time signature changes
+                let timeSigChanged = false;
+                if (bar.time_signature) {
+                    if (!validateTimeSignature(bar.time_signature)) {
+                        throw new Error(`Invalid time signature '${bar.time_signature}' at bar ${barNum}`);
+                    }
+                    if (bar.time_signature !== currentTimeSignature) {
+                        timeSigChanged = true;
+                        currentTimeSignature = bar.time_signature;
+                    }
+                }
+
+                // Validate accent pattern matches time signature
+                if (accentPattern && currentTimeSignature) {
+                    const error = validateDivision(accentPattern, currentTimeSignature);
+                    if (error) throw new Error(`At bar ${barNum}: ${error}`);
+                }
+
+                // /16 time signatures require accent pattern
+                if (currentTimeSignature && currentTimeSignature.endsWith('/16')) {
+                    if (timeSigChanged && !accentPattern) {
+                        throw new Error(`At bar ${barNum}: Time signature '${currentTimeSignature}' requires a division`);
+                    }
+                }
+
+                const accentPatternChanged = accentPattern !== null && 
+                    JSON.stringify(accentPattern) !== JSON.stringify(currentAccentPattern);
+
+                // Add bar entry if time signature or accent pattern changed
+                if (timeSigChanged || accentPatternChanged) {
+                    if (accentPattern) currentAccentPattern = accentPattern;
+                    else if (timeSigChanged) currentAccentPattern = null;
+
+                    let timeSigObj;
+                    if (currentAccentPattern) {
+                        timeSigObj = { timeSignature: currentTimeSignature, accentPattern: currentAccentPattern };
+                    } else {
+                        timeSigObj = currentTimeSignature;
+                    }
+
+                    bars.push({ id: generateUUID(), number: barNum, timeSignature: timeSigObj });
+                }
+
+                // Track tempo changes
+                if (bar.tempo) {
+                    const result = validateTempo(bar.tempo);
+                    if (!result.valid) {
+                        throw new Error(`Invalid tempo '${bar.tempo}' at bar ${barNum}. Use a number (20-300) or 'acc'/'rit'.`);
+                    }
+
+                    const tempoChange = {
+                        id: generateUUID(),
+                        bar: barNum,
+                        transition: result.transition || 'none'
+                    };
+                    if (result.value !== null) tempoChange.tempo = result.value;
+                    if (bar.text_marking && result.value !== null) tempoChange.marking = bar.text_marking;
+                    tempoChanges.push(tempoChange);
+                }
+
+                // Track rehearsal marks
+                if (bar.rehearsal_marking) {
+                    rehearsalMarks.push({ id: generateUUID(), name: bar.rehearsal_marking, bar: barNum });
+                }
+            }
+
+            return {
+                defaultTempo,
+                bars,
+                tempoChanges,
+                rehearsalMarks,
+                totalBars: barsData[barsData.length - 1].bar_number
+            };
+        }
+
+        // Create complete score
+        function createScore(barsData, title, composer) {
+            const processed = processBarsData(barsData);
+            return {
+                id: generateUUID(),
+                title,
+                composer,
+                defaultTempo: processed.defaultTempo,
+                tempoChanges: processed.tempoChanges,
+                rehearsalMarks: processed.rehearsalMarks,
+                bars: processed.bars,
+                totalBars: processed.totalBars
+            };
+        }
+
+        // Convert button handler
+        convertBtn.addEventListener('click', () => {
+            try {
+                statusArea.innerHTML = '';
+                statsArea.innerHTML = '';
+                outputArea.style.display = 'none';
+
+                const barsData = parseCSV(csvContent);
+                generatedScore = createScore(barsData, titleInput.value.trim(), composerInput.value.trim());
+
+                showStatus(`✓ Successfully converted "${generatedScore.title}"`, 'success');
+                
+                statsArea.innerHTML = `
+                    <div class="stats">
+                        <div class="stat"><div class="stat-value">${generatedScore.totalBars}</div><div class="stat-label">Total Bars</div></div>
+                        <div class="stat"><div class="stat-value">${generatedScore.defaultTempo}</div><div class="stat-label">Default BPM</div></div>
+                        <div class="stat"><div class="stat-value">${generatedScore.bars.length}</div><div class="stat-label">Time Sig Changes</div></div>
+                        <div class="stat"><div class="stat-value">${generatedScore.tempoChanges.length}</div><div class="stat-label">Tempo Changes</div></div>
+                        <div class="stat"><div class="stat-value">${generatedScore.rehearsalMarks.length}</div><div class="stat-label">Rehearsal Marks</div></div>
+                    </div>
+                `;
+
+                outputJson.textContent = JSON.stringify(generatedScore, null, 2);
+                outputArea.style.display = 'block';
+
+            } catch (e) {
+                showStatus(`Error: ${e.message}`, 'error');
+            }
+        });
+
+        function showStatus(message, type) {
+            statusArea.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        // Download handler
+        downloadBtn.addEventListener('click', () => {
+            if (!generatedScore) return;
+            const blob = new Blob([JSON.stringify(generatedScore, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${generatedScore.title.toLowerCase().replace(/\s+/g, '-')}.scorepulse`;
+            a.click();
+            URL.revokeObjectURL(url);
+        });
+
+        // Copy handler
+        copyBtn.addEventListener('click', () => {
+            if (!generatedScore) return;
+            navigator.clipboard.writeText(JSON.stringify(generatedScore, null, 2));
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => copyBtn.textContent = 'Copy to Clipboard', 2000);
+        });
+    </script>
+</body>
+</html>

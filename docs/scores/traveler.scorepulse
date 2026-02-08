@@ -1,0 +1,514 @@
+{
+  "id": "cdfa2449-fa3a-470d-a2da-221560b60112",
+  "title": "Traveler",
+  "composer": "David Maslanka",
+  "defaultTempo": 116,
+  "tempoChanges": [
+    {
+      "id": "886cc9fc-9f2d-4f03-b2f3-7496e9c1a908",
+      "bar": 1,
+      "transition": "none",
+      "tempo": 116,
+      "marking": "Moderate"
+    },
+    {
+      "id": "cdb736fd-27c2-4027-88b0-98ad6685a84e",
+      "bar": 66,
+      "transition": "acc"
+    },
+    {
+      "id": "ae86eed5-7513-4b6a-a285-c5c8154e1df9",
+      "bar": 67,
+      "transition": "none",
+      "tempo": 132
+    },
+    {
+      "id": "7025415f-1b8f-4ea6-ad32-ddf194aa8759",
+      "bar": 102,
+      "transition": "rit"
+    },
+    {
+      "id": "4f5ae75d-f0e6-4a05-9df9-7064bfb2f4e9",
+      "bar": 103,
+      "transition": "none",
+      "tempo": 116
+    },
+    {
+      "id": "8d16b68e-4252-4b33-abf9-020564f69b16",
+      "bar": 214,
+      "transition": "none",
+      "tempo": 120
+    },
+    {
+      "id": "ca3b6c8f-c408-4acd-929d-af1238494e13",
+      "bar": 240,
+      "transition": "none",
+      "tempo": 58
+    }
+  ],
+  "rehearsalMarks": [
+    {
+      "id": "17e18b9c-0b64-42a1-b4f6-a6e889ed31f2",
+      "name": "10",
+      "bar": 10
+    },
+    {
+      "id": "c24b31ad-04c5-40fc-879c-45ef0d59ed53",
+      "name": "20",
+      "bar": 20
+    },
+    {
+      "id": "05b8305e-5d60-45c7-83b1-808c93fb282b",
+      "name": "30",
+      "bar": 30
+    },
+    {
+      "id": "ad04e896-932a-4bf6-a4d5-e77603595198",
+      "name": "40",
+      "bar": 40
+    },
+    {
+      "id": "61c207a4-910a-4c79-a924-dcac54af13ba",
+      "name": "50",
+      "bar": 50
+    },
+    {
+      "id": "d9df71d6-e505-47c2-8996-9a8c25e7b302",
+      "name": "60",
+      "bar": 60
+    },
+    {
+      "id": "bcc761eb-0ab5-4c9e-a937-1be6f4345841",
+      "name": "70",
+      "bar": 70
+    },
+    {
+      "id": "042852b4-a650-4185-83d3-05fd0faa5457",
+      "name": "80",
+      "bar": 80
+    },
+    {
+      "id": "f79f6cf8-b52a-47b4-bed0-d973418b8d16",
+      "name": "90",
+      "bar": 90
+    },
+    {
+      "id": "c2647477-9b2f-4952-965d-49fcbd2566d6",
+      "name": "100",
+      "bar": 100
+    },
+    {
+      "id": "ada0d081-1a4e-4d2b-9cab-feebe164e841",
+      "name": "110",
+      "bar": 110
+    },
+    {
+      "id": "3811df72-cc97-448c-bca0-bf75df80abe7",
+      "name": "120",
+      "bar": 120
+    },
+    {
+      "id": "3c6769ed-1b14-4b06-9f0a-047479a2f173",
+      "name": "130",
+      "bar": 130
+    },
+    {
+      "id": "f3a876f4-26fd-45ca-9700-bd6badc0da88",
+      "name": "140",
+      "bar": 140
+    },
+    {
+      "id": "5932aa6d-30df-4106-ad25-fff6dcff84f7",
+      "name": "150",
+      "bar": 150
+    },
+    {
+      "id": "cecc2188-444a-450d-80e1-24fd6a80715a",
+      "name": "160",
+      "bar": 160
+    },
+    {
+      "id": "00d118dd-e457-4e5b-a1d1-02261f284619",
+      "name": "170",
+      "bar": 170
+    },
+    {
+      "id": "3466fa50-6b7a-4a93-9326-5e15b88e4dac",
+      "name": "180",
+      "bar": 180
+    },
+    {
+      "id": "c65be6cb-30cc-4e10-92bc-9d372b109d21",
+      "name": "190",
+      "bar": 190
+    },
+    {
+      "id": "8caadd88-16c9-4aac-8a6b-ebaeccffc31f",
+      "name": "200",
+      "bar": 200
+    },
+    {
+      "id": "f0b0a387-3242-4d76-882d-020ab6aad717",
+      "name": "210",
+      "bar": 210
+    },
+    {
+      "id": "03d26c4e-eb89-4798-a397-c2dfa505b66a",
+      "name": "220",
+      "bar": 220
+    },
+    {
+      "id": "6bc5edb3-4586-46e7-893b-acddf07207a8",
+      "name": "230",
+      "bar": 230
+    },
+    {
+      "id": "e30156af-cabd-4c53-aae7-1253ebeedcd1",
+      "name": "240",
+      "bar": 240
+    },
+    {
+      "id": "5635a6c9-0fbe-4a77-873b-8a69a37af0c3",
+      "name": "250",
+      "bar": 250
+    },
+    {
+      "id": "6b3bec2d-004c-484c-9842-832d4469d22b",
+      "name": "260",
+      "bar": 260
+    },
+    {
+      "id": "ce87d30b-63c3-410a-bbe5-4f6d2d5a5d0f",
+      "name": "270",
+      "bar": 270
+    },
+    {
+      "id": "2611b7fe-9658-4966-a0bb-eca95e7a5f9e",
+      "name": "280",
+      "bar": 280
+    },
+    {
+      "id": "d57cc898-9200-4649-958e-b6fc6725bf3a",
+      "name": "290",
+      "bar": 290
+    },
+    {
+      "id": "fa0331ac-87fa-41c3-ad16-3edf3b88a674",
+      "name": "300",
+      "bar": 300
+    }
+  ],
+  "bars": [
+    {
+      "id": "c1d68fd1-d4af-4e56-9cfb-16fd27c9eb07",
+      "number": 1,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "9cb0a2e1-8f7f-4df2-a4ed-ff75ac2b99dc",
+      "number": 14,
+      "timeSignature": "5/4"
+    },
+    {
+      "id": "f325f7d7-8fd4-4541-9f3e-f138d5f30b7f",
+      "number": 15,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "e2ed2f61-2fa5-4eb2-92ba-435f36e21490",
+      "number": 30,
+      "timeSignature": "5/4"
+    },
+    {
+      "id": "0cd0e086-1584-4619-b419-6eaf979b07d7",
+      "number": 34,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "93ec37bf-fbb3-4601-a46b-597948186401",
+      "number": 38,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "8cc03908-665b-47c5-b440-403a28aa2b73",
+      "number": 39,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "ae0b6bb3-f0b3-460f-aaad-20c7f7bf5013",
+      "number": 40,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "3dc79763-cbf8-4ba9-8194-4553e4f03726",
+      "number": 41,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "1c02cf0a-77a4-4689-8080-3ca40233e97a",
+      "number": 57,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "c832eb53-c626-4672-ba3a-12aedff672d0",
+      "number": 58,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "c5f95eb6-bdc3-4dca-af46-42c3a541cae0",
+      "number": 59,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "93585c64-aa68-4891-be32-92ec271a9410",
+      "number": 61,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "45dedeca-e836-47ac-a49c-e653e92267fe",
+      "number": 62,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "65a1b557-ff28-4081-865d-7a657d5ab681",
+      "number": 67,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "47ed16b5-25b8-462e-a631-6032f4bb6ce4",
+      "number": 70,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "f4eacdc4-7b4c-4653-9d16-accbe7a10936",
+      "number": 71,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "902afccf-6d1d-46ca-801c-14cf9b340fcd",
+      "number": 72,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "d22f3e5c-b071-4179-91a3-1c2c133c72d0",
+      "number": 73,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "25226f1e-3814-4131-b9b1-7e4ed6e59117",
+      "number": 74,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "c458ce7c-7f95-421d-bb51-cd3f0fcad7e2",
+      "number": 75,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "24f8ffe9-54de-4a3e-a812-1d1399383a30",
+      "number": 76,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "ef5b0475-1328-4c9d-ac1b-96d31527ba16",
+      "number": 77,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "2232817b-0b40-42f7-aad0-0801211bd879",
+      "number": 78,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "e2d2b57a-fad5-4f9c-9c37-c22a36123ced",
+      "number": 79,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "b1e4a8d1-99c8-423b-8d10-61e23f36d8b0",
+      "number": 80,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "ab19ad3a-0a64-411e-a8ee-6f71f7d9cd0d",
+      "number": 83,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "e6cb8fea-7304-418c-9fe7-47e76f902201",
+      "number": 84,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "83fd0e4d-51b1-4cf1-a02d-491bd218d915",
+      "number": 92,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "419bdff4-f484-4558-893c-88e7fe92545b",
+      "number": 93,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "9719e92f-943d-4128-bdb4-5b13316eeabf",
+      "number": 95,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "9b4a02f7-8d1d-4fa1-bc69-cb900b7bd83c",
+      "number": 97,
+      "timeSignature": "5/4"
+    },
+    {
+      "id": "59b9fe57-aa37-4fb4-a133-90568724abfb",
+      "number": 98,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "32e8266d-b37d-4030-98c3-f99aeabb477f",
+      "number": 102,
+      "timeSignature": "5/4"
+    },
+    {
+      "id": "f99ee2ee-408d-4aba-851c-2418e0c141f4",
+      "number": 103,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "0cec6581-7296-4061-870c-deb8a2596cc9",
+      "number": 107,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "c58861de-6304-4891-949c-9373ccd93c64",
+      "number": 108,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "0fc56be7-1294-46f9-a71d-aff2e637a815",
+      "number": 110,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "92a08eed-404f-4d57-a0da-77a0776e3cf1",
+      "number": 111,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "a772d256-4282-4543-a85e-737d2c9339b3",
+      "number": 113,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "cb23f1f3-32ca-4a61-bb12-a52b02074e04",
+      "number": 169,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "98c66017-f125-4f9d-87c4-c414ca977d23",
+      "number": 170,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "e1d961c9-c4a7-42d3-b43e-93c8fb3d979a",
+      "number": 178,
+      "timeSignature": "3/2"
+    },
+    {
+      "id": "1a9ecd6c-e8f8-4db1-b529-f353ce20af7a",
+      "number": 180,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "550e3227-0fa9-4865-98d5-32f9475e4e56",
+      "number": 196,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "8d363d79-01a3-42b5-9963-87c49a051bc0",
+      "number": 197,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "cf7a3efe-6516-4177-828e-4a0dadcdfa7e",
+      "number": 198,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "0eed7445-8dd4-44e4-a01f-ff2f536c9d70",
+      "number": 199,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "23b38bab-9ee2-435a-af34-a67c6a307328",
+      "number": 200,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "8481da4b-b8ef-4155-8273-18d707316f48",
+      "number": 201,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "637a1af1-fe3f-4eab-8edd-f451112f4315",
+      "number": 221,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "535d63d6-aaef-471c-96ed-a47b2adc761b",
+      "number": 222,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "cdfb9a2c-8a9a-411c-9940-5f215e0a9702",
+      "number": 252,
+      "timeSignature": "3/2"
+    },
+    {
+      "id": "f0eb81df-fa31-4467-bfe6-24bbb009ebcc",
+      "number": 253,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "d55afd8d-b17b-40a6-b9ed-9f768b053b0e",
+      "number": 255,
+      "timeSignature": "3/2"
+    },
+    {
+      "id": "bdd14139-4558-445e-8dde-72973d848341",
+      "number": 256,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "943b564b-2755-4bb4-9019-06fb1d9d9933",
+      "number": 273,
+      "timeSignature": "3/2"
+    },
+    {
+      "id": "462e4761-1731-4ba9-8862-2fedf1044949",
+      "number": 274,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "009fb89b-36e7-4d7f-a600-ab782a5b6c33",
+      "number": 290,
+      "timeSignature": "3/2"
+    },
+    {
+      "id": "d79f000b-1617-4a60-b07b-4a4b8f09b118",
+      "number": 291,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "cb7949f9-963c-4dcd-9095-6337adc85d0e",
+      "number": 293,
+      "timeSignature": "3/2"
+    },
+    {
+      "id": "f9d84db2-6ccc-4c41-a0c4-22b87b5cbd00",
+      "number": 294,
+      "timeSignature": "4/4"
+    }
+  ],
+  "totalBars": 305
+}

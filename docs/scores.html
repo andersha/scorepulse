@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example Scores - ScorePulse</title>
+    <style>
+        :root {
+            --bg: #1a1a2e;
+            --card-bg: #16213e;
+            --accent: #0f3460;
+            --primary: #e94560;
+            --text: #eee;
+            --text-muted: #aaa;
+            --success: #4ade80;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 900px; margin: 0 auto; }
+        h1 { color: var(--primary); margin-bottom: 0.5rem; }
+        .subtitle { color: var(--text-muted); margin-bottom: 2rem; }
+        .scores-grid { display: grid; gap: 1.5rem; }
+        .score-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .score-info h2 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin-bottom: 0.25rem;
+        }
+        .score-info .composer {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.75rem;
+        }
+        .score-meta {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+        .meta-item {
+            text-align: center;
+        }
+        .meta-value {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: var(--text);
+        }
+        .meta-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { filter: brightness(1.1); }
+        .btn-secondary { background: var(--accent); color: var(--text); }
+        .btn-secondary:hover { background: #1a4a7a; }
+        .btn-group { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .intro {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        .intro p { color: var(--text-muted); margin-bottom: 0.5rem; }
+        .intro p:last-child { margin-bottom: 0; }
+        .links { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--accent); }
+        .links a { color: var(--primary); margin-right: 1.5rem; text-decoration: none; }
+        .links a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .score-card { flex-direction: column; align-items: flex-start; }
+            .btn-group { width: 100%; }
+            .btn-group .btn { flex: 1; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎼 Example Scores</h1>
+        <p class="subtitle">Download ready-made ScorePulse files for concert band repertoire</p>
+
+        <div class="intro">
+            <p><strong>How to use:</strong> Download a <code>.scorepulse</code> file and import it into the ScorePulse app using the + button in the Scores tab, or use "Open In" from your device's Files app.</p>
+            <p>These scores include time signature changes, tempo markings, and rehearsal marks matching the published scores.</p>
+        </div>
+
+        <div class="scores-grid">
+            <div class="score-card">
+                <div class="score-info">
+                    <h2>A Brussels Requiem</h2>
+                    <div class="composer">Bert Appermont</div>
+                    <div class="score-meta">
+                        <div class="meta-item">
+                            <div class="meta-value">415</div>
+                            <div class="meta-label">Bars</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">52</div>
+                            <div class="meta-label">Start BPM</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">~18 min</div>
+                            <div class="meta-label">Duration</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="scores/a-brussels-requiem.scorepulse" download class="btn btn-primary">Download</a>
+                </div>
+            </div>
+
+            <div class="score-card">
+                <div class="score-info">
+                    <h2>Fraternity</h2>
+                    <div class="composer">Thierry Deleruyelle</div>
+                    <div class="score-meta">
+                        <div class="meta-item">
+                            <div class="meta-value">457</div>
+                            <div class="meta-label">Bars</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">52</div>
+                            <div class="meta-label">Start BPM</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">~15 min</div>
+                            <div class="meta-label">Duration</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="scores/fraternity.scorepulse" download class="btn btn-primary">Download</a>
+                </div>
+            </div>
+
+            <div class="score-card">
+                <div class="score-info">
+                    <h2>Traveler</h2>
+                    <div class="composer">David Maslanka</div>
+                    <div class="score-meta">
+                        <div class="meta-item">
+                            <div class="meta-value">305</div>
+                            <div class="meta-label">Bars</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">116</div>
+                            <div class="meta-label">Start BPM</div>
+                        </div>
+                        <div class="meta-item">
+                            <div class="meta-value">~12 min</div>
+                            <div class="meta-label">Duration</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <a href="scores/traveler.scorepulse" download class="btn btn-primary">Download</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="intro" style="margin-top: 2rem;">
+            <p><strong>Want to contribute?</strong> Create your own score files using the <a href="converter.html" style="color: var(--primary);">CSV Converter</a> and share them with the community!</p>
+        </div>
+
+        <div class="links">
+            <a href="index.html">← Back to Documentation</a>
+            <a href="converter.html">CSV Converter</a>
+            <a href="csv-format-guide.html">Format Guide</a>
+        </div>
+    </div>
+</body>
+</html>
