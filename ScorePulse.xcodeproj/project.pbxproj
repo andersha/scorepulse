@@ -23,6 +23,8 @@
 		ACA3A02CA8F70C08EC1520FF /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2CD0A6AC564E933AAC8272 /* AboutView.swift */; };
 		C5C4178166FD2273779E925B /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */; };
 		F6705638B70120A08DBA8651 /* ScoreStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */; };
+		AA000001000000000000000E /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000E /* AppSettings.swift */; };
+		AA000001000000000000000F /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB000001000000000000000F /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		BB000001000000000000000B /* ScorePlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScorePlayerView.swift; sourceTree = "<group>"; };
 		BB000001000000000000000C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BB000001000000000000000D /* bundled-scores.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "bundled-scores.json"; sourceTree = "<group>"; };
+		BB000001000000000000000E /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		BB000001000000000000000F /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 				BB0000010000000000000006 /* Score.swift */,
 				BB0000010000000000000007 /* MetronomeSettings.swift */,
 				380A2EEE17A290447F45D38E /* ScoreStorageManager.swift */,
+				BB000001000000000000000E /* AppSettings.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 				BB000001000000000000000B /* ScorePlayerView.swift */,
 				AB2CD0A6AC564E933AAC8272 /* AboutView.swift */,
 				8EB0936EE7A1DF55C1DB7048 /* DocumentPicker.swift */,
+				BB000001000000000000000F /* SettingsView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -213,6 +219,8 @@
 				ACA3A02CA8F70C08EC1520FF /* AboutView.swift in Sources */,
 				F6705638B70120A08DBA8651 /* ScoreStorageManager.swift in Sources */,
 				C5C4178166FD2273779E925B /* DocumentPicker.swift in Sources */,
+				AA000001000000000000000E /* AppSettings.swift in Sources */,
+				AA000001000000000000000F /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

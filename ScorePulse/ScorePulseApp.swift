@@ -3,6 +3,7 @@ import SwiftUI
 @main
 struct ScorePulseApp: App {
     @StateObject private var settings = MetronomeSettings()
+    @ObservedObject private var appSettings = AppSettings.shared
     @State private var selectedTab = 1
     
     var body: some Scene {
@@ -21,12 +22,19 @@ struct ScorePulseApp: App {
                     }
                     .tag(1)
                 
+                SettingsView()
+                    .tabItem {
+                        Label("Settings", systemImage: "gear")
+                    }
+                    .tag(2)
+                
                 AboutView()
                     .tabItem {
                         Label("About", systemImage: "info.circle")
                     }
-                    .tag(2)
+                    .tag(3)
             }
+            .preferredColorScheme(appSettings.appearanceMode.colorScheme)
             .onOpenURL { url in
                 handleIncomingURL(url)
             }
