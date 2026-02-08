@@ -11,9 +11,6 @@ ScorePulse is an advanced metronome app for musicians, featuring score playback 
 ## Documentation
 
 - [Privacy Policy](privacy-policy.html)
-- [Score Import Guide](SCORE_IMPORT_README.md)
-- [CSV Converter (Python)](CSV_CONVERTER_README.md)
-- [Setup Instructions](SETUP_INSTRUCTIONS.md)
 
 ## Links
 
