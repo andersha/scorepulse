@@ -26,6 +26,7 @@
         .container { max-width: 700px; margin: 0 auto; }
         h1 { color: var(--primary); margin-bottom: 0.5rem; }
         h2 { color: var(--text); margin: 2rem 0 1rem; font-size: 1.2rem; }
+        h3 { color: var(--text-muted); margin: 1.5rem 0 0.75rem; font-size: 1rem; }
         .subtitle { color: var(--text-muted); margin-bottom: 2rem; }
         p { margin-bottom: 1rem; color: var(--text-muted); }
         .card {
@@ -43,47 +44,164 @@
         }
         .highlight strong { color: var(--success); }
         a { color: var(--primary); }
+        ul { margin: 1rem 0 1rem 1.5rem; color: var(--text-muted); }
+        li { margin-bottom: 0.5rem; }
+        .no-list { list-style: none; margin-left: 0; }
         .links { margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--accent); }
         .links a { margin-right: 1.5rem; text-decoration: none; }
         .links a:hover { text-decoration: underline; }
         .updated { color: var(--text-muted); font-size: 0.9rem; font-style: italic; margin-top: 2rem; }
+        .toc { background: var(--accent); border-radius: 8px; padding: 1rem 1.5rem; margin-bottom: 2rem; }
+        .toc ol { margin: 0.5rem 0 0 1.5rem; }
+        .toc a { text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>🔒 Privacy Policy</h1>
-        <p class="subtitle">ScorePulse is committed to protecting your privacy.</p>
+        <p class="subtitle">ScorePulse – Advanced Metronome for Musicians</p>
+        <p><strong>Last Updated:</strong> February 8, 2026<br>
+        <strong>Bundle Identifier:</strong> com.andersha.scorepulse</p>
 
-        <div class="card">
-            <h2>Data Collection</h2>
+        <div class="toc">
+            <strong>Contents</strong>
+            <ol>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#not-collected">Information We Do Not Collect</a></li>
+                <li><a href="#local">Information Stored Locally</a></li>
+                <li><a href="#children">Children's Privacy</a></li>
+                <li><a href="#rights">Your Rights</a></li>
+                <li><a href="#changes">Changes to This Policy</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#open-source">Open Source</a></li>
+            </ol>
+        </div>
+
+        <div class="card" id="introduction">
+            <h2>Introduction</h2>
+            <p>ScorePulse ("the App") is an iOS application that provides an advanced metronome with score playback features, including changing time signatures, tempo transitions, and rehearsal marks. The App is designed with privacy in mind and operates entirely offline.</p>
             <div class="highlight">
-                <strong>We collect nothing.</strong>
+                <strong>Our commitment:</strong> We do not collect, transmit, or share any personal information or usage data from our users.
             </div>
-            <p>ScorePulse does not collect, store, or transmit any personal data. All your scores and settings remain on your device.</p>
         </div>
 
-        <div class="card">
-            <h2>Third-Party Services</h2>
-            <p>ScorePulse does not use any third-party analytics, advertising, or tracking services.</p>
+        <div class="card" id="not-collected">
+            <h2>Information We Do Not Collect</h2>
+            <p>The ScorePulse app <strong>does not</strong> collect, store, transmit, or process any of the following:</p>
+            <ul class="no-list">
+                <li>❌ Personal identification information (name, email, phone number, etc.)</li>
+                <li>❌ Location data</li>
+                <li>❌ Usage analytics or tracking data</li>
+                <li>❌ Device identifiers (UDID, advertising ID, etc.)</li>
+                <li>❌ Crash reports or diagnostic data</li>
+                <li>❌ Search queries or user-generated content</li>
+                <li>❌ Network activity or browsing history</li>
+                <li>❌ Cookies or similar tracking technologies</li>
+                <li>❌ Authentication credentials or user accounts</li>
+            </ul>
+            <p><strong>The app does not require:</strong></p>
+            <ul>
+                <li>Account creation</li>
+                <li>Sign-in or login</li>
+                <li>Network permissions</li>
+                <li>Access to device features (camera, contacts, photos, etc.)</li>
+            </ul>
         </div>
 
-        <div class="card">
-            <h2>Regulatory Compliance</h2>
-            <p>Since we collect no data, ScorePulse is compliant with all privacy regulations including GDPR, CCPA, and others.</p>
+        <div class="card" id="local">
+            <h2>Information Stored Locally</h2>
+            <p>The App stores minimal, non-personal data <strong>locally on your device only</strong>. This data never leaves your device and is not transmitted to any server.</p>
+            
+            <h3>What is stored:</h3>
+            <ul>
+                <li><strong>Imported Scores:</strong> Score files (.scorepulse) you import are stored in the app's Documents folder</li>
+                <li><strong>Playback Settings:</strong> Your subdivision mode preference (quarter/eighth notes)</li>
+            </ul>
+            
+            <h3>Storage Method:</h3>
+            <ul>
+                <li>Data is stored using iOS's standard file system and UserDefaults</li>
+                <li>Storage is sandboxed to the App and cannot be accessed by other apps</li>
+                <li>Total storage varies based on imported scores (typically under 100KB)</li>
+            </ul>
+            
+            <h3>How to Delete:</h3>
+            <p>You can delete all locally stored data by:</p>
+            <ul>
+                <li>Deleting individual scores using the swipe-to-delete gesture in the app</li>
+                <li>Deleting and reinstalling the app</li>
+                <li>Using iOS Settings → ScorePulse → Delete App Data</li>
+            </ul>
         </div>
 
-        <div class="card">
+        <div class="card" id="children">
+            <h2>Children's Privacy</h2>
+            <p>The ScorePulse app is suitable for all ages (rated 4+). We do not knowingly collect any personal information from children or adults.</p>
+            <p><strong>Parents/Guardians:</strong> The App is safe for children to use independently, as it:</p>
+            <ul>
+                <li>Contains no advertisements</li>
+                <li>Has no in-app purchases</li>
+                <li>Does not collect any personal information</li>
+                <li>Does not allow communication with other users</li>
+                <li>Contains only music practice tools</li>
+            </ul>
+        </div>
+
+        <div class="card" id="rights">
+            <h2>Your Rights</h2>
+            <h3>Under GDPR and Similar Privacy Laws:</h3>
+            <p>Since we do not collect any personal data, most data subject rights do not apply. However, we respect your privacy rights:</p>
+            <ul>
+                <li><strong>Right to Information:</strong> This policy provides full transparency about our practices</li>
+                <li><strong>Right to Deletion:</strong> You can delete locally stored data anytime by clearing app data or reinstalling</li>
+                <li><strong>Right to Access:</strong> All data is stored locally on your device and accessible to you</li>
+                <li><strong>Right to Object:</strong> Since we don't collect data, there is nothing to object to</li>
+            </ul>
+        </div>
+
+        <div class="card" id="changes">
+            <h2>Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time to reflect:</p>
+            <ul>
+                <li>Changes in our practices</li>
+                <li>Updates to legal requirements</li>
+                <li>App feature changes</li>
+            </ul>
+            <p><strong>Notice of Changes:</strong></p>
+            <ul>
+                <li>The "Last Updated" date at the top of this policy will be revised</li>
+                <li>Material changes will be communicated through App Store update notes</li>
+            </ul>
+            <p>By continuing to use the App after changes are posted, you accept the updated policy.</p>
+        </div>
+
+        <div class="card" id="contact">
+            <h2>Contact Us</h2>
+            <p>If you have questions, concerns, or requests regarding this Privacy Policy or the ScorePulse app:</p>
+            <ul>
+                <li><strong>GitHub Issues:</strong> <a href="https://github.com/andersha/scorepulse/issues">github.com/andersha/scorepulse/issues</a></li>
+                <li><strong>Source Code:</strong> <a href="https://github.com/andersha/scorepulse">github.com/andersha/scorepulse</a></li>
+            </ul>
+        </div>
+
+        <div class="card" id="open-source">
             <h2>Open Source</h2>
-            <p>You may reuse this code and data as much as you want, as long as you publish where you got it from.</p>
+            <p>ScorePulse is open source. You may reuse this code and data as much as you want, as long as you publish where you got it from.</p>
             <p>Source code: <a href="https://github.com/andersha/scorepulse">github.com/andersha/scorepulse</a></p>
         </div>
 
         <div class="card">
-            <h2>Contact</h2>
-            <p>If you have any questions about this privacy policy, please open an issue on our <a href="https://github.com/andersha/scorepulse/issues">GitHub repository</a>.</p>
+            <h2>Compliance Summary</h2>
+            <ul class="no-list">
+                <li>✅ <strong>GDPR Compliant:</strong> No personal data collected</li>
+                <li>✅ <strong>CCPA Compliant:</strong> No personal information sold or shared</li>
+                <li>✅ <strong>COPPA Compliant:</strong> Safe for children, no data collection</li>
+                <li>✅ <strong>Apple App Store Guidelines:</strong> Meets all privacy requirements</li>
+            </ul>
         </div>
 
-        <p class="updated">Last updated: February 2026</p>
+        <p class="updated">Last updated: February 8, 2026</p>
 
         <div class="links">
             <a href="index.html">← Back to Documentation</a>
