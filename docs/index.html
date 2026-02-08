@@ -4,77 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ScorePulse - Documentation</title>
-    <style>
-        :root {
-            --bg: #1a1a2e;
-            --card-bg: #16213e;
-            --accent: #0f3460;
-            --primary: #e94560;
-            --text: #eee;
-            --text-muted: #aaa;
-        }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            min-height: 100vh;
-            padding: 2rem;
-        }
-        .container { max-width: 700px; margin: 0 auto; }
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        .header .icon { font-size: 4rem; margin-bottom: 1rem; }
-        h1 { color: var(--primary); margin-bottom: 0.5rem; font-size: 2.5rem; }
-        .subtitle { color: var(--text-muted); font-size: 1.1rem; }
-        h2 { color: var(--primary); margin: 2rem 0 1rem; font-size: 1.2rem; }
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        .nav-grid {
-            display: grid;
-            gap: 1rem;
-        }
-        .nav-link {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1rem 1.25rem;
-            background: var(--card-bg);
-            border-radius: 10px;
-            text-decoration: none;
-            color: var(--text);
-            transition: all 0.2s;
-        }
-        .nav-link:hover {
-            background: var(--accent);
-            transform: translateX(4px);
-        }
-        .nav-link .icon { font-size: 1.5rem; }
-        .nav-link .title { font-weight: 600; }
-        .nav-link .desc { font-size: 0.85rem; color: var(--text-muted); }
-        .github-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-top: 2rem;
-            padding: 0.75rem 1.5rem;
-            background: var(--accent);
-            border-radius: 8px;
-            color: var(--text);
-            text-decoration: none;
-            transition: all 0.2s;
-        }
-        .github-link:hover { background: #1a4a7a; }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container-narrow">
         <div class="header">
             <div class="icon">🎵</div>
             <h1>ScorePulse</h1>
