@@ -1,7 +1,7 @@
 import Foundation
 
 /// Represents a complete musical score
-struct Score: Codable, Identifiable {
+struct Score: Codable, Identifiable, Hashable {
     let id: UUID
     let title: String
     let composer: String
@@ -10,6 +10,15 @@ struct Score: Codable, Identifiable {
     let rehearsalMarks: [RehearsalMark]
     let bars: [Bar]  // Only stores bars with time signature changes
     let totalBars: Int
+    
+    // Hashable conformance - use id for equality
+    static func == (lhs: Score, rhs: Score) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     init(id: UUID = UUID(), title: String, composer: String, defaultTempo: Int,
          tempoChanges: [TempoChange] = [], rehearsalMarks: [RehearsalMark] = [],

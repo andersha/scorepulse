@@ -8,7 +8,7 @@ struct MetronomeView: View {
     @State private var beatPulse = false
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             VStack(spacing: 30) {
                 Spacer()
                 
