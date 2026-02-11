@@ -1,0 +1,28 @@
+{
+  "scores": [
+    {
+      "id": "2845ad65-541a-4f7d-a977-2ecdae3dc007",
+      "title": "A Brussels Requiem",
+      "composer": "Bert Appermont",
+      "defaultTempo": 52,
+      "totalBars": 415,
+      "filename": "a-brussels-requiem.scorepulse"
+    },
+    {
+      "id": "19bf436d-d524-4d5b-9f4c-f76147c516b2",
+      "title": "Fraternity",
+      "composer": "Thierry Deleruyelle",
+      "defaultTempo": 52,
+      "totalBars": 457,
+      "filename": "fraternity.scorepulse"
+    },
+    {
+      "id": "cdfa2449-fa3a-470d-a2da-221560b60112",
+      "title": "Traveler",
+      "composer": "David Maslanka",
+      "defaultTempo": 116,
+      "totalBars": 305,
+      "filename": "traveler.scorepulse"
+    }
+  ]
+}

@@ -66,7 +66,7 @@ class MetronomeSettings: ObservableObject {
     }
     
     /// Load user-imported scores from storage
-    private func loadUserScores() {
+    func loadUserScores() {
         userScores = storageManager.loadAllScores()
     }
     

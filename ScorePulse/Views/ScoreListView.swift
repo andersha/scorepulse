@@ -4,6 +4,7 @@ struct ScoreListView: View {
     @EnvironmentObject var settings: MetronomeSettings
     @State private var searchText = ""
     @State private var showingDocumentPicker = false
+    @State private var showingDownloadSheet = false
     @State private var showingImportError = false
     @State private var importErrorMessage = ""
     @State private var selectedScore: Score?
@@ -46,6 +47,9 @@ struct ScoreListView: View {
                     importScore(from: url)
                 }
             }
+            .sheet(isPresented: $showingDownloadSheet) {
+                DownloadableScoresView()
+            }
             .alert("Import Error", isPresented: $showingImportError) {
                 Button("OK", role: .cancel) {}
             } message: {
@@ -61,6 +65,9 @@ struct ScoreListView: View {
                 DocumentPicker(isPresented: $showingDocumentPicker) { url in
                     importScore(from: url)
                 }
+            }
+            .sheet(isPresented: $showingDownloadSheet) {
+                DownloadableScoresView()
             }
             .alert("Import Error", isPresented: $showingImportError) {
                 Button("OK", role: .cancel) {}
@@ -93,6 +100,13 @@ struct ScoreListView: View {
         }
         .searchable(text: $searchText, prompt: "Search scores")
         .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    showingDownloadSheet = true
+                } label: {
+                    Image(systemName: "arrow.down.circle")
+                }
+            }
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button {
                     showingDocumentPicker = true
