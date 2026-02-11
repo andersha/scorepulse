@@ -273,89 +273,172 @@ class MetronomeEngine: ObservableObject {
             var clickIndex = 0
             var currentBarNum = 1
             
-            // Schedule ahead by this many seconds
-            let scheduleAheadTime: Double = 0.5
+            // Pre-schedule a large buffer of clicks (100 bars worth)
+            let barsToSchedule = 100
+            let totalClicksToSchedule = barsToSchedule * totalClicksPerBar
             
+            // Schedule initial buffer
+            for _ in 0..<totalClicksToSchedule {
+                if Task.isCancelled { break }
+                
+                let positionInBar = clickIndex % totalClicksPerBar
+                
+                // Determine click type
+                let clickType: ClickType
+                if isSixteenth || (timeSignature.hasGroupings && subdivision == .quarter) {
+                    clickType = positionInBar == 0 ? .downbeat : .offbeat
+                } else if subdivision == .eighth {
+                    if positionInBar == 0 {
+                        clickType = .downbeat
+                    } else if timeSignature.hasGroupings {
+                        let positions = timeSignature.accentPositions()
+                        clickType = positions.contains(positionInBar) ? .beatAccent : .offbeat
+                    } else {
+                        clickType = (positionInBar % 2 == 0) ? .beatAccent : .offbeat
+                    }
+                } else {
+                    clickType = positionInBar == 0 ? .downbeat : .offbeat
+                }
+                
+                // Calculate beat number for UI
+                let beatNumber: Int
+                if isSixteenth || (isGroupedEighth && subdivision == .quarter) {
+                    beatNumber = positionInBar + 1
+                } else if isGroupedEighth && subdivision == .eighth {
+                    let accentPositions = timeSignature.accentPositions()
+                    var beatNum = 1
+                    for (idx, pos) in accentPositions.enumerated() {
+                        if positionInBar >= pos {
+                            beatNum = idx + 1
+                        }
+                    }
+                    beatNumber = beatNum
+                } else if subdivision == .quarter {
+                    beatNumber = positionInBar + 1
+                } else {
+                    beatNumber = (positionInBar / 2) + 1
+                }
+                
+                self.scheduleClick(at: nextClickSampleTime, type: clickType, bar: currentBarNum, beat: beatNumber, tempo: bpm)
+                
+                // Calculate duration for this click
+                let clickDuration: Double
+                if isSixteenth {
+                    if let pattern = timeSignature.effectiveAccentPattern {
+                        clickDuration = sixteenthNoteDuration * Double(pattern[positionInBar])
+                    } else {
+                        clickDuration = sixteenthNoteDuration
+                    }
+                } else if isGroupedEighth && subdivision == .quarter {
+                    if let pattern = timeSignature.effectiveAccentPattern {
+                        clickDuration = eighthNoteDuration * Double(pattern[positionInBar])
+                    } else {
+                        clickDuration = eighthNoteDuration
+                    }
+                } else if subdivision == .eighth {
+                    if isGroupedEighth {
+                        clickDuration = eighthNoteDuration
+                    } else {
+                        clickDuration = quarterNoteDuration / 2.0
+                    }
+                } else {
+                    clickDuration = quarterNoteDuration
+                }
+                
+                nextClickSampleTime += self.secondsToSamples(clickDuration)
+                clickIndex += 1
+                
+                if clickIndex % totalClicksPerBar == 0 {
+                    currentBarNum += 1
+                }
+            }
+            
+            // Continue scheduling more clicks as playback progresses
             while !Task.isCancelled {
                 let currentTime = self.getCurrentSampleTime()
-                let scheduleHorizon = currentTime + self.secondsToSamples(scheduleAheadTime)
+                let timeUntilLastScheduled = self.samplesToSeconds(nextClickSampleTime - currentTime)
                 
-                // Schedule clicks up to the horizon
-                while nextClickSampleTime < scheduleHorizon && !Task.isCancelled {
-                    let positionInBar = clickIndex % totalClicksPerBar
-                    
-                    // Determine click type
-                    let clickType: ClickType
-                    if isSixteenth || (timeSignature.hasGroupings && subdivision == .quarter) {
-                        clickType = positionInBar == 0 ? .downbeat : .offbeat
-                    } else if subdivision == .eighth {
-                        if positionInBar == 0 {
-                            clickType = .downbeat
-                        } else if timeSignature.hasGroupings {
-                            let positions = timeSignature.accentPositions()
-                            clickType = positions.contains(positionInBar) ? .beatAccent : .offbeat
-                        } else {
-                            clickType = (positionInBar % 2 == 0) ? .beatAccent : .offbeat
-                        }
-                    } else {
-                        clickType = positionInBar == 0 ? .downbeat : .offbeat
-                    }
-                    
-                    // Calculate beat number for UI
-                    let beatNumber: Int
-                    if isSixteenth || (isGroupedEighth && subdivision == .quarter) {
-                        beatNumber = positionInBar + 1
-                    } else if isGroupedEighth && subdivision == .eighth {
-                        let accentPositions = timeSignature.accentPositions()
-                        var beatNum = 1
-                        for (idx, pos) in accentPositions.enumerated() {
-                            if positionInBar >= pos {
-                                beatNum = idx + 1
+                // When we're down to 50 bars of buffer, schedule another 100 bars
+                let barDuration = (60.0 / Double(bpm)) * Double(timeSignature.beatsPerBar)
+                let barsRemaining = timeUntilLastScheduled / barDuration
+                
+                if barsRemaining < 50 {
+                    // Schedule another batch
+                    for _ in 0..<totalClicksToSchedule {
+                        if Task.isCancelled { break }
+                        
+                        let positionInBar = clickIndex % totalClicksPerBar
+                        
+                        let clickType: ClickType
+                        if isSixteenth || (timeSignature.hasGroupings && subdivision == .quarter) {
+                            clickType = positionInBar == 0 ? .downbeat : .offbeat
+                        } else if subdivision == .eighth {
+                            if positionInBar == 0 {
+                                clickType = .downbeat
+                            } else if timeSignature.hasGroupings {
+                                let positions = timeSignature.accentPositions()
+                                clickType = positions.contains(positionInBar) ? .beatAccent : .offbeat
+                            } else {
+                                clickType = (positionInBar % 2 == 0) ? .beatAccent : .offbeat
                             }
-                        }
-                        beatNumber = beatNum
-                    } else if subdivision == .quarter {
-                        beatNumber = positionInBar + 1
-                    } else {
-                        beatNumber = (positionInBar / 2) + 1
-                    }
-                    
-                    self.scheduleClick(at: nextClickSampleTime, type: clickType, bar: currentBarNum, beat: beatNumber, tempo: bpm)
-                    
-                    // Calculate duration for this click
-                    let clickDuration: Double
-                    if isSixteenth {
-                        if let pattern = timeSignature.effectiveAccentPattern {
-                            clickDuration = sixteenthNoteDuration * Double(pattern[positionInBar])
                         } else {
-                            clickDuration = sixteenthNoteDuration
+                            clickType = positionInBar == 0 ? .downbeat : .offbeat
                         }
-                    } else if isGroupedEighth && subdivision == .quarter {
-                        if let pattern = timeSignature.effectiveAccentPattern {
-                            clickDuration = eighthNoteDuration * Double(pattern[positionInBar])
+                        
+                        let beatNumber: Int
+                        if isSixteenth || (isGroupedEighth && subdivision == .quarter) {
+                            beatNumber = positionInBar + 1
+                        } else if isGroupedEighth && subdivision == .eighth {
+                            let accentPositions = timeSignature.accentPositions()
+                            var beatNum = 1
+                            for (idx, pos) in accentPositions.enumerated() {
+                                if positionInBar >= pos {
+                                    beatNum = idx + 1
+                                }
+                            }
+                            beatNumber = beatNum
+                        } else if subdivision == .quarter {
+                            beatNumber = positionInBar + 1
                         } else {
-                            clickDuration = eighthNoteDuration
+                            beatNumber = (positionInBar / 2) + 1
                         }
-                    } else if subdivision == .eighth {
-                        if isGroupedEighth {
-                            clickDuration = eighthNoteDuration
+                        
+                        self.scheduleClick(at: nextClickSampleTime, type: clickType, bar: currentBarNum, beat: beatNumber, tempo: bpm)
+                        
+                        let clickDuration: Double
+                        if isSixteenth {
+                            if let pattern = timeSignature.effectiveAccentPattern {
+                                clickDuration = sixteenthNoteDuration * Double(pattern[positionInBar])
+                            } else {
+                                clickDuration = sixteenthNoteDuration
+                            }
+                        } else if isGroupedEighth && subdivision == .quarter {
+                            if let pattern = timeSignature.effectiveAccentPattern {
+                                clickDuration = eighthNoteDuration * Double(pattern[positionInBar])
+                            } else {
+                                clickDuration = eighthNoteDuration
+                            }
+                        } else if subdivision == .eighth {
+                            if isGroupedEighth {
+                                clickDuration = eighthNoteDuration
+                            } else {
+                                clickDuration = quarterNoteDuration / 2.0
+                            }
                         } else {
-                            clickDuration = quarterNoteDuration / 2.0
+                            clickDuration = quarterNoteDuration
                         }
-                    } else {
-                        clickDuration = quarterNoteDuration
-                    }
-                    
-                    nextClickSampleTime += self.secondsToSamples(clickDuration)
-                    clickIndex += 1
-                    
-                    if clickIndex % totalClicksPerBar == 0 {
-                        currentBarNum += 1
+                        
+                        nextClickSampleTime += self.secondsToSamples(clickDuration)
+                        clickIndex += 1
+                        
+                        if clickIndex % totalClicksPerBar == 0 {
+                            currentBarNum += 1
+                        }
                     }
                 }
                 
-                // Sleep briefly before scheduling more clicks
-                try? await Task.sleep(nanoseconds: 50_000_000) // 50ms
+                // Check less frequently since we have a large buffer
+                try? await Task.sleep(nanoseconds: 500_000_000) // 500ms
             }
         }
     }
