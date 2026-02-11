@@ -30,6 +30,14 @@ struct SettingsView: View {
                 } footer: {
                     Text("Choose how ScorePulse appears. System follows your device settings.")
                 }
+                
+                Section {
+                    Toggle("Show Sample Scores", isOn: $appSettings.showSampleScores)
+                } header: {
+                    Text("Scores")
+                } footer: {
+                    Text("When enabled, example scores will be shown in the Scores tab.")
+                }
             }
             .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)

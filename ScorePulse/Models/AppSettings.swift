@@ -31,6 +31,7 @@ class AppSettings: ObservableObject {
     static let shared = AppSettings()
     
     @AppStorage("appearanceMode") private var appearanceModeRaw: String = AppearanceMode.system.rawValue
+    @AppStorage("showSampleScores") var showSampleScores: Bool = true
     
     var appearanceMode: AppearanceMode {
         get { AppearanceMode(rawValue: appearanceModeRaw) ?? .system }

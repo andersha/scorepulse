@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ScoreListView: View {
     @EnvironmentObject var settings: MetronomeSettings
+    @ObservedObject var appSettings = AppSettings.shared
     @State private var searchText = ""
     @State private var showingDocumentPicker = false
     @State private var showingDownloadSheet = false
@@ -90,7 +91,7 @@ struct ScoreListView: View {
                 }
             }
             
-            if !filteredBundledScores.isEmpty {
+            if !filteredBundledScores.isEmpty && appSettings.showSampleScores {
                 Section(header: Text("Example Scores")) {
                     ForEach(filteredBundledScores) { score in
                         scoreRow(for: score)
