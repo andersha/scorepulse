@@ -1,0 +1,100 @@
+{
+  "id": "e270d4ff-449d-4138-9306-7b4b162ab014",
+  "title": "The Year of the Dragon II Interlude",
+  "composer": "Philip Sparke",
+  "defaultTempo": 72,
+  "tempoChanges": [
+    {
+      "id": "69de11de-56da-4c7f-bdad-272c2a1dca29",
+      "bar": 1,
+      "transition": "none",
+      "tempo": 72,
+      "marking": "Con moto"
+    },
+    {
+      "id": "9cef57b5-5f5e-4f21-988b-5c0093f1d23d",
+      "bar": 8,
+      "transition": "none",
+      "tempo": 54,
+      "marking": "Lento"
+    },
+    {
+      "id": "7177e747-0d61-4a9f-9235-481f141cd95f",
+      "bar": 22,
+      "transition": "none",
+      "tempo": 72,
+      "marking": "Tempo primo"
+    },
+    {
+      "id": "c03b17ba-f6bf-4ea3-bfe1-5014b4a8b9b7",
+      "bar": 36,
+      "transition": "none",
+      "tempo": 60,
+      "marking": "Poco più mosso"
+    },
+    {
+      "id": "077f309e-7399-4fff-bedf-7cdd76fdf867",
+      "bar": 67,
+      "transition": "none",
+      "tempo": 72,
+      "marking": "Tempo primo"
+    },
+    {
+      "id": "5099f8de-344e-4ec6-8aa7-5c66a391868c",
+      "bar": 74,
+      "transition": "none",
+      "tempo": 54,
+      "marking": "Lento"
+    }
+  ],
+  "rehearsalMarks": [
+    {
+      "id": "5f68e156-cae6-46a3-8a96-b0bf10bd44d8",
+      "name": "H",
+      "bar": 18
+    },
+    {
+      "id": "b58167ef-4df6-4e6a-b118-37a135fd53ef",
+      "name": "J",
+      "bar": 36
+    },
+    {
+      "id": "8900c654-a5f6-48de-bb5a-c188d1feded3",
+      "name": "K",
+      "bar": 52
+    },
+    {
+      "id": "11a805af-137e-4418-9f89-2fd78abca728",
+      "name": "L",
+      "bar": 74
+    }
+  ],
+  "bars": [
+    {
+      "id": "861de608-4c0b-4c79-be2a-d2b0b1559403",
+      "number": 1,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "4a04931e-a248-4961-be8c-292572f9bd47",
+      "number": 10,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "3d2868ca-da72-42b5-a43e-0b77fb94171b",
+      "number": 11,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "9c4e22db-49fa-4bf8-9802-3281bece93d8",
+      "number": 76,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "f438c456-99f9-4a87-bfd5-f66924a24eb3",
+      "number": 77,
+      "timeSignature": "4/4"
+    }
+  ],
+  "totalBars": 89
+}

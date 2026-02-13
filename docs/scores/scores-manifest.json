@@ -23,6 +23,30 @@
       "defaultTempo": 116,
       "totalBars": 305,
       "filename": "traveler.scorepulse"
+    },
+    {
+      "id": "a6a2e385-9360-4414-8ad0-e413ceaebcdf",
+      "title": "The Year of the Dragon I Toccata",
+      "composer": "Philip Sparke",
+      "defaultTempo": 168,
+      "totalBars": 117,
+      "filename": "the_year_of_the_dragon_i_toccata.scorepulse"
+    },
+    {
+      "id": "e270d4ff-449d-4138-9306-7b4b162ab014",
+      "title": "The Year of the Dragon II Interlude",
+      "composer": "Philip Sparke",
+      "defaultTempo": 72,
+      "totalBars": 74,
+      "filename": "the_year_of_the_dragon_ii_interlude.scorepulse"
+    },
+    {
+      "id": "0910ba98-5919-4f81-94fc-475f8db843b7",
+      "title": "The Year of the Dragon III Finale",
+      "composer": "Philip Sparke",
+      "defaultTempo": 138,
+      "totalBars": 238,
+      "filename": "the_year_of_the_dragon_iii_finale.scorepulse"
     }
   ]
 }

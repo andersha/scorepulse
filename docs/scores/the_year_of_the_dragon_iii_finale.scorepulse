@@ -1,0 +1,335 @@
+{
+  "id": "0910ba98-5919-4f81-94fc-475f8db843b7",
+  "title": "The Year of the Dragon III Finale",
+  "composer": "Philip Sparke",
+  "defaultTempo": 138,
+  "tempoChanges": [
+    {
+      "id": "e1dc66af-5f9c-4218-946f-63e0c89e9ada",
+      "bar": 1,
+      "transition": "none",
+      "tempo": 138,
+      "marking": "Molto Vivace"
+    }
+  ],
+  "rehearsalMarks": [
+    {
+      "id": "309a5901-8363-40c4-8551-85ca9f01fce3",
+      "name": "M",
+      "bar": 16
+    },
+    {
+      "id": "3fb8137f-aaf3-4eca-aa59-2d5546678976",
+      "name": "N",
+      "bar": 36
+    },
+    {
+      "id": "2fdf2969-a2cc-4dbf-95c6-547e59e45d7b",
+      "name": "O",
+      "bar": 51
+    },
+    {
+      "id": "1618234c-fa79-4fce-af2c-a8674516a4c4",
+      "name": "P",
+      "bar": 66
+    },
+    {
+      "id": "175e4aff-6237-4eed-a75f-d6c164a353a7",
+      "name": "Q",
+      "bar": 89
+    },
+    {
+      "id": "824372af-96d6-489a-8fe4-1c31deaf358f",
+      "name": "R",
+      "bar": 105
+    },
+    {
+      "id": "62b05c4b-49ae-4626-8c65-d16aaca1a00e",
+      "name": "S",
+      "bar": 119
+    },
+    {
+      "id": "044f4cc6-daa3-4a7d-b726-15f18393826c",
+      "name": "T",
+      "bar": 142
+    },
+    {
+      "id": "150d831f-efc1-417a-b7d7-cc50f84b7270",
+      "name": "U",
+      "bar": 152
+    },
+    {
+      "id": "def4d0cb-55b3-45c2-9db8-ab38edc9f42f",
+      "name": "V",
+      "bar": 169
+    },
+    {
+      "id": "e656712a-a839-4a79-9782-894249357010",
+      "name": "W",
+      "bar": 185
+    },
+    {
+      "id": "4197c0fd-60e5-4977-ac97-f7eefba94436",
+      "name": "X",
+      "bar": 202
+    },
+    {
+      "id": "4ddaba55-b5c3-4522-bf69-ee016e0623b3",
+      "name": "Y",
+      "bar": 220
+    },
+    {
+      "id": "27c32f75-c4a7-465e-974a-06c855fdd1e5",
+      "name": "Z",
+      "bar": 238
+    }
+  ],
+  "bars": [
+    {
+      "id": "e79a2362-1f60-40a0-9df9-7a7b692a6604",
+      "number": 1,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "81ab986a-202e-4bc5-80c7-2761dd07d8ed",
+      "number": 5,
+      "timeSignature": "3/8"
+    },
+    {
+      "id": "6b2041c5-a6d9-4dd2-8891-e500f8e889c4",
+      "number": 6,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "78816dd5-a288-42cd-b3b6-354d1e28f556",
+      "number": 10,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "33e2fabf-9f62-4268-9114-9abf1cfd513b",
+      "number": 11,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "2bc01092-aeca-4425-92f4-fd688fdb9c7c",
+      "number": 14,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "8c4a4eee-28d5-4248-9ed3-821eac662672",
+      "number": 18,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "88117c86-c16a-4764-b2cd-de360cfca4fd",
+      "number": 19,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "78595e1b-7db6-47e4-9e5e-182d7ff3f161",
+      "number": 20,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "71ee4831-f7aa-455e-945d-87db5261ad42",
+      "number": 21,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "beb0ef99-796e-43c5-9643-89f8940926fe",
+      "number": 22,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "98594207-be1b-4b43-84a4-4b2d4c9acce9",
+      "number": 35,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "d4487f87-4474-4fc9-b84e-9273e0869a60",
+      "number": 36,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "42ab7ba7-2425-484d-ad12-d3290822d5a5",
+      "number": 37,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "c8dc6302-cb98-46ff-9ca9-ccc0fa26ae7c",
+      "number": 39,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "ad70cd0b-1cff-410c-95c1-4c84bf511a16",
+      "number": 40,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "b773a8d2-c6a4-4665-9187-da99ffa9bfcf",
+      "number": 41,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "751640c7-eb05-411a-bac0-50fd9a450fb0",
+      "number": 42,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "a2016196-5d4d-4178-ab3d-d91c2bb15ede",
+      "number": 49,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "d020fc2e-afa7-4254-86af-03cabe842400",
+      "number": 51,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "4763fd8f-a983-48dd-a1f9-9d2e79087c5a",
+      "number": 56,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "03975f29-7db1-4502-a8af-43d800246642",
+      "number": 57,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "2974e836-15d8-4a8c-b7e0-a52c0450c8e7",
+      "number": 58,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "b52c0992-865a-4ba5-8438-012b52f0ef9d",
+      "number": 80,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "8e1e0abc-01a1-419f-b25a-f02feade5bb6",
+      "number": 81,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "5a6ba4b3-18c5-44f2-9f73-f43a7f155207",
+      "number": 109,
+      "timeSignature": "3/8"
+    },
+    {
+      "id": "b96f4135-61dc-4a4b-a8a5-fc1abfa0d6c5",
+      "number": 110,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "d8b355f4-75e1-4a52-bfe5-e245c8a3cfc5",
+      "number": 114,
+      "timeSignature": "3/8"
+    },
+    {
+      "id": "757c015d-f01d-4e2e-abfe-6fcae4da1326",
+      "number": 115,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "76507ba0-d885-4145-a25b-337d65e3a96d",
+      "number": 118,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "4cff980a-cbac-4791-9ad3-64ba46728884",
+      "number": 119,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "7c47975a-8c2c-4989-9b03-a44935fe4d50",
+      "number": 151,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "06793875-046c-4435-b2de-2624f9986bde",
+      "number": 152,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "b6bef8a7-533c-4c95-8db3-ec6c13344103",
+      "number": 173,
+      "timeSignature": "3/8"
+    },
+    {
+      "id": "155dc46d-b787-47b1-8b25-3bf8bce57227",
+      "number": 174,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "ecd34712-387e-4f0d-aef5-970c8b7106e0",
+      "number": 179,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "5076d477-c202-47a6-95fb-5d23ca209672",
+      "number": 180,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "9d3fbb90-2e6f-465e-83bc-42f9065f6cba",
+      "number": 185,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "db1fba80-2f93-40d8-92fe-20c332d5ccd9",
+      "number": 186,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "fe880bfb-4e9d-4f44-9d2f-76e888aa0d43",
+      "number": 187,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "a44505d2-003b-471a-a48d-9ae9bf8b86cc",
+      "number": 188,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "c409f164-c66d-47ec-a526-7abb30289c12",
+      "number": 201,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "6135699a-f286-43a1-b624-6fc479166438",
+      "number": 202,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "c43cb819-6591-4e5e-b6ea-2baa12699a23",
+      "number": 203,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "1ec57142-3f9f-400f-97ba-def8e5f8716e",
+      "number": 205,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "00b54a33-2f0c-47ef-a47c-8dbd607a734c",
+      "number": 206,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "b022065f-6354-44c1-9a17-aa16024f0058",
+      "number": 207,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "913c8323-5315-4dc2-931b-206d2f4a6eac",
+      "number": 208,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "90eabd8e-55f2-4425-a0c4-4e620a9c3f6b",
+      "number": 209,
+      "timeSignature": "2/4"
+    }
+  ],
+  "totalBars": 256
+}

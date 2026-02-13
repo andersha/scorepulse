@@ -1,0 +1,110 @@
+{
+  "id": "a6a2e385-9360-4414-8ad0-e413ceaebcdf",
+  "title": "The Year of the Dragon I Toccata",
+  "composer": "Philip Sparke",
+  "defaultTempo": 168,
+  "tempoChanges": [
+    {
+      "id": "7da062e2-3b8d-4396-a83c-5ade19f70379",
+      "bar": 1,
+      "transition": "none",
+      "tempo": 168,
+      "marking": "Molto allegro"
+    }
+  ],
+  "rehearsalMarks": [
+    {
+      "id": "dcf28c73-c148-4b34-b6bb-d5eab084cf39",
+      "name": "A",
+      "bar": 12
+    },
+    {
+      "id": "d2d2a7b8-07b8-4071-a036-6639922294e6",
+      "name": "B",
+      "bar": 32
+    },
+    {
+      "id": "b157d04c-ae03-44a0-8634-a8565fc663fe",
+      "name": "C",
+      "bar": 47
+    },
+    {
+      "id": "cf2960af-5305-4e16-97e7-76308b79a07c",
+      "name": "D",
+      "bar": 62
+    },
+    {
+      "id": "ddc584a7-9751-4d9e-94cb-8d065c181186",
+      "name": "E",
+      "bar": 78
+    },
+    {
+      "id": "9f67072a-9344-41f3-a753-c13a2b90bc7e",
+      "name": "F",
+      "bar": 98
+    },
+    {
+      "id": "918c0fc4-ad5e-4726-831b-4a05e6cf9a7c",
+      "name": "G",
+      "bar": 117
+    }
+  ],
+  "bars": [
+    {
+      "id": "f9042b7c-941d-43b6-89f1-939770cb8ad1",
+      "number": 1,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "300d9559-a9d4-46d9-b7e0-b074a79b001b",
+      "number": 78,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "059ef70c-8ff1-441f-8844-40780093b04e",
+      "number": 81,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "ccb2a820-a501-41c5-b28c-174b596680b3",
+      "number": 89,
+      "timeSignature": "3/4"
+    },
+    {
+      "id": "433f8463-5870-4452-8c6d-722cde40a099",
+      "number": 92,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "9caf45a2-4f78-4823-a385-db5fb2adf20d",
+      "number": 97,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "2fd123ce-6d23-4d6d-8424-a713ad9abc45",
+      "number": 98,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "057cce75-7627-4c60-af40-b34652b52744",
+      "number": 104,
+      "timeSignature": "2/4"
+    },
+    {
+      "id": "cda578d4-eaf6-4134-aa0a-fb6564f77dee",
+      "number": 105,
+      "timeSignature": "4/4"
+    },
+    {
+      "id": "133e41c8-539c-4cbd-ba06-dc1d50426d06",
+      "number": 107,
+      "timeSignature": "5/4"
+    },
+    {
+      "id": "ed6a3d92-cb29-445a-ade5-072013443340",
+      "number": 108,
+      "timeSignature": "4/4"
+    }
+  ],
+  "totalBars": 132
+}
