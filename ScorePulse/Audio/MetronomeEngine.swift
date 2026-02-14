@@ -1,6 +1,7 @@
 import AVFoundation
 import Foundation
 import Combine
+import UIKit
 
 /// Scheduled click with sample position and type
 private struct ScheduledClick {
@@ -20,6 +21,7 @@ class MetronomeEngine: ObservableObject {
     private let audioEngine = AVAudioEngine()
     private var sourceNode: AVAudioSourceNode?
     private var sampleRate: Double = 44100.0
+    private let appSettings = AppSettings.shared
     
     // Audio generation state (accessed from audio thread)
     private let lock = NSLock()
@@ -47,6 +49,22 @@ class MetronomeEngine: ObservableObject {
     init() {
         setupAudioSession()
         setupAudioEngine()
+        setupBackgroundHandling()
+    }
+    
+    private func setupBackgroundHandling() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleAppWillResignActive),
+            name: UIApplication.willResignActiveNotification,
+            object: nil
+        )
+    }
+    
+    @objc private func handleAppWillResignActive() {
+        if isPlaying {
+            stop()
+        }
     }
     
     private func setupAudioSession() {
@@ -100,7 +118,7 @@ class MetronomeEngine: ObservableObject {
                 while let nextClick = clickQueue.first, nextClick.sampleTime <= sampleTime {
                     activeFrequency = nextClick.frequency
                     phase = 0
-                    amplitude = 0.5
+                    amplitude = self.appSettings.volumeLevel.amplitude
                     clickQueue.removeFirst()
                 }
                 
@@ -144,7 +162,8 @@ class MetronomeEngine: ObservableObject {
         audioEngine.connect(sourceNode, to: mainMixer, format: format)
         audioEngine.connect(mainMixer, to: outputNode, format: format)
         
-        mainMixer.outputVolume = 0.6
+        // Volume will be set from settings when playback starts
+        mainMixer.outputVolume = 1.0
         
         do {
             try audioEngine.start()
@@ -229,6 +248,12 @@ class MetronomeEngine: ObservableObject {
     /// Start simple metronome with fixed tempo and time signature
     func startMetronome(bpm: Int, timeSignature: TimeSignature, subdivision: SubdivisionMode) {
         stop()
+        
+        // Disable screen idle timer to keep screen on during playback
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        // Apply volume settings
+        audioEngine.mainMixerNode.outputVolume = appSettings.volumeLevel.mixerVolume
         
         clearScheduledClicks()
         
@@ -446,6 +471,13 @@ class MetronomeEngine: ObservableObject {
     /// Start score playback with changing time signatures and tempi
     func startScorePlayback(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, countIn: Bool = false, onPositionUpdate: @escaping (Int, Int, Int) -> Void) {
         stop()
+        
+        // Disable screen idle timer to keep screen on during playback
+        UIApplication.shared.isIdleTimerDisabled = true
+        
+        // Apply volume settings
+        audioEngine.mainMixerNode.outputVolume = appSettings.volumeLevel.mixerVolume
+        
         clearScheduledClicks()
         
         // Reset sample counter and enable audio
@@ -695,6 +727,9 @@ class MetronomeEngine: ObservableObject {
         clearScheduledClicks()
         isPlaying = false
         positionUpdateCallback = nil
+        
+        // Re-enable screen idle timer when stopped
+        UIApplication.shared.isIdleTimerDisabled = false
     }
     
     deinit {

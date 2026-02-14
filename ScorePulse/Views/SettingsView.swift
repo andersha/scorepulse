@@ -32,6 +32,31 @@ struct SettingsView: View {
                 }
                 
                 Section {
+                    ForEach(VolumeLevel.allCases) { level in
+                        Button {
+                            appSettings.volumeLevel = level
+                        } label: {
+                            HStack {
+                                Image(systemName: level.icon)
+                                    .foregroundColor(.accentColor)
+                                    .frame(width: 24)
+                                Text(level.rawValue)
+                                    .foregroundColor(.primary)
+                                Spacer()
+                                if appSettings.volumeLevel == level {
+                                    Image(systemName: "checkmark")
+                                        .foregroundColor(.accentColor)
+                                }
+                            }
+                        }
+                    }
+                } header: {
+                    Text("Click Volume")
+                } footer: {
+                    Text("Adjust the metronome click volume. High is recommended for rehearsals with multiple players.")
+                }
+                
+                Section {
                     Toggle("Show Sample Scores", isOn: $appSettings.showSampleScores)
                 } header: {
                     Text("Scores")
