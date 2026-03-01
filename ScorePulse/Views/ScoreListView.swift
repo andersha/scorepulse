@@ -38,6 +38,7 @@ struct ScoreListView: View {
             } detail: {
                 if let score = selectedScore {
                     ScorePlayerView(score: score)
+                        .id(score)
                 } else {
                     Text("Select a score")
                         .foregroundColor(.secondary)

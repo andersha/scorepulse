@@ -248,6 +248,9 @@ struct ScorePlayerView: View {
             currentBar = 1
             playStartBar = 1
         }
+        .onDisappear {
+            engine.stop()
+        }
         .onChange(of: currentBeat) { _, _ in
             beatPulse = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

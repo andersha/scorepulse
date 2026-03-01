@@ -103,6 +103,9 @@ struct MetronomeView: View {
                     beatPulse = false
                 }
             }
+            .onDisappear {
+                engine.stop()
+            }
         }
     }
     
