@@ -12,6 +12,14 @@ private struct ScheduledClick {
     let tempo: Int             // Tempo for UI display
 }
 
+/// Scheduled UI event tied to audio sample position
+private struct ScheduledUIEvent {
+    let sampleTime: Int64
+    let bar: Int
+    let beat: Int
+    let tempo: Int
+}
+
 /// Audio engine for metronome click generation with sample-accurate timing
 class MetronomeEngine: ObservableObject {
     @Published var isPlaying = false
@@ -37,9 +45,11 @@ class MetronomeEngine: ObservableObject {
     
     // Playback control
     private var schedulingTask: Task<Void, Never>?
-    private var playbackStartTime: Date?
-    private var playbackStartSampleTime: Int64 = 0
-    private var playbackGeneration: Int = 0  // Increments each start to invalidate old UI callbacks
+
+    // CADisplayLink-based UI synchronization
+    private var uiEventQueue: [ScheduledUIEvent] = []
+    private var displayLink: CADisplayLink?
+    private var outputLatencySamples: Int64 = 0
     
     // Click sound frequencies
     private let downbeatFrequency: Float = 1200.0
@@ -198,24 +208,8 @@ class MetronomeEngine: ObservableObject {
         )
         lock.lock()
         clickQueue.append(click)
+        uiEventQueue.append(ScheduledUIEvent(sampleTime: sampleTime, bar: bar, beat: beat, tempo: tempo))
         lock.unlock()
-        
-        // Schedule UI update based on wall-clock time from playback start
-        guard let startTime = playbackStartTime else { return }
-        let samplesFromStart = sampleTime - playbackStartSampleTime
-        let secondsFromStart = Double(samplesFromStart) / sampleRate
-        let fireTime = startTime.addingTimeInterval(secondsFromStart)
-        let delay = max(0, fireTime.timeIntervalSinceNow)
-        
-        let generation = playbackGeneration
-        DispatchQueue.main.asyncAfter(deadline: .now() + delay) { [weak self] in
-            guard let self = self, self.isPlaying, self.playbackGeneration == generation else { return }
-            if bar > 0 {
-                self.currentBar = bar
-            }
-            self.currentBeat = beat
-            self.positionUpdateCallback?(bar, beat, tempo)
-        }
     }
     
     /// Get current sample time
@@ -230,10 +224,51 @@ class MetronomeEngine: ObservableObject {
     private func clearScheduledClicks() {
         lock.lock()
         clickQueue.removeAll()
+        uiEventQueue.removeAll()
         activeClickFrequency = 0
         amplitude = 0
         shouldSilence = true
         lock.unlock()
+    }
+
+    // MARK: - CADisplayLink
+
+    private func startDisplayLink() {
+        // Calculate output latency in samples
+        let latency = audioEngine.outputNode.presentationLatency
+        outputLatencySamples = Int64(latency * sampleRate)
+
+        let link = CADisplayLink(target: self, selector: #selector(displayLinkFired))
+        link.add(to: .main, forMode: .common)
+        displayLink = link
+    }
+
+    private func stopDisplayLink() {
+        displayLink?.invalidate()
+        displayLink = nil
+    }
+
+    @objc private func displayLinkFired() {
+        guard isPlaying else { return }
+
+        lock.lock()
+        let heardSampleTime = currentSampleTime - outputLatencySamples
+
+        // Find events that should have fired by now
+        var lastEvent: ScheduledUIEvent?
+        while let first = uiEventQueue.first, first.sampleTime <= heardSampleTime {
+            lastEvent = uiEventQueue.removeFirst()
+        }
+        lock.unlock()
+
+        // Apply only the most recent event (collapse multiple per frame)
+        if let event = lastEvent {
+            if event.bar > 0 {
+                currentBar = event.bar
+            }
+            currentBeat = event.beat
+            positionUpdateCallback?(event.bar, event.beat, event.tempo)
+        }
     }
     
     /// Convert duration in seconds to samples
@@ -267,11 +302,9 @@ class MetronomeEngine: ObservableObject {
             self.isPlaying = true
             self.currentBeat = 1
             self.currentBar = 1
-            
-            // Record playback start for UI timing
-            self.playbackStartSampleTime = self.lock.withLock { self.currentSampleTime }
-            self.playbackStartTime = Date()
-            
+
+            self.startDisplayLink()
+
             let isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
             let isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
             let actualBeats = timeSignature.actualBeatsPerBar
@@ -490,11 +523,9 @@ class MetronomeEngine: ObservableObject {
         
         schedulingTask = Task { @MainActor in
             self.isPlaying = true
-            
-            // Record playback start for UI timing
-            self.playbackStartSampleTime = self.lock.withLock { self.currentSampleTime }
-            self.playbackStartTime = Date()
-            
+
+            self.startDisplayLink()
+
             var nextClickSampleTime: Int64 = self.getCurrentSampleTime() + self.secondsToSamples(0.05)
             
             // Schedule count-in if enabled
@@ -723,16 +754,17 @@ class MetronomeEngine: ObservableObject {
     func stop() {
         schedulingTask?.cancel()
         schedulingTask = nil
-        playbackGeneration += 1  // Invalidate any pending UI callbacks
+        stopDisplayLink()
         clearScheduledClicks()
         isPlaying = false
         positionUpdateCallback = nil
-        
+
         // Re-enable screen idle timer when stopped
         UIApplication.shared.isIdleTimerDisabled = false
     }
-    
+
     deinit {
+        stopDisplayLink()
         audioEngine.stop()
     }
 }
