@@ -502,7 +502,7 @@ class MetronomeEngine: ObservableObject {
     }
     
     /// Start score playback with changing time signatures and tempi
-    func startScorePlayback(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, countIn: Bool = false, onPositionUpdate: @escaping (Int, Int, Int) -> Void) {
+    func startScorePlayback(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, countIn: Bool = false, countInMode: CountInMode = .standard, onPositionUpdate: @escaping (Int, Int, Int) -> Void) {
         stop()
         
         // Disable screen idle timer to keep screen on during playback
@@ -535,6 +535,7 @@ class MetronomeEngine: ObservableObject {
                     startBar: startBar,
                     tempoMultiplier: tempoMultiplier,
                     subdivision: subdivision,
+                    countInMode: countInMode,
                     startingSampleTime: nextClickSampleTime
                 )
             }
@@ -667,86 +668,115 @@ class MetronomeEngine: ObservableObject {
     }
     
     /// Schedule count-in clicks and return the sample time for the first score click
-    private func scheduleCountIn(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, startingSampleTime: Int64) async -> Int64 {
-        let timeSignature = score.timeSignature(at: startBar)
+    private func scheduleCountIn(score: Score, startBar: Int, tempoMultiplier: Double, subdivision: SubdivisionMode, countInMode: CountInMode, startingSampleTime: Int64) async -> Int64 {
         let baseTempo = score.tempo(at: startBar)
         let effectiveTempo = Int(Double(baseTempo) * tempoMultiplier)
-        
         let quarterNoteDuration = 60.0 / Double(effectiveTempo)
-        let eighthNoteDuration = quarterNoteDuration / 2.0
-        let sixteenthNoteDuration = quarterNoteDuration / 4.0
-        
-        let isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
-        let isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
-        let actualBeats = timeSignature.actualBeatsPerBar
-        
-        let totalClicksPerBar: Int
-        switch subdivision {
-        case .quarter:
-            totalClicksPerBar = actualBeats
-        case .eighth:
-            if isSixteenth {
-                totalClicksPerBar = actualBeats
-            } else if isGroupedEighth {
-                totalClicksPerBar = timeSignature.beatsPerBar
-            } else {
-                totalClicksPerBar = actualBeats * 2
-            }
-        }
-        
+
         var nextClickSampleTime = startingSampleTime
-        
-        for clickIndex in 0..<totalClicksPerBar {
-            let clickType: ClickType = clickIndex == 0 ? .downbeat : .offbeat
-            
-            // Beat number calculation
-            let beatNumber: Int
-            if isSixteenth || (isGroupedEighth && subdivision == .quarter) {
-                beatNumber = clickIndex + 1
-            } else if isGroupedEighth && subdivision == .eighth {
-                let accentPositions = timeSignature.accentPositions()
-                var beatNum = 1
-                for (idx, pos) in accentPositions.enumerated() {
-                    if clickIndex >= pos {
-                        beatNum = idx + 1
-                    }
-                }
-                beatNumber = beatNum
-            } else if subdivision == .quarter {
-                beatNumber = clickIndex + 1
-            } else {
-                beatNumber = (clickIndex / 2) + 1
-            }
-            
-            scheduleClick(at: nextClickSampleTime, type: clickType, bar: -1, beat: beatNumber, tempo: effectiveTempo)
-            
-            // Calculate duration
+
+        switch countInMode {
+        case .standard:
+            // Simple 4/4 count-in: 4 quarter-note clicks (or 8 eighth-note clicks)
+            let totalClicks: Int
             let clickDuration: Double
-            if isSixteenth {
-                if let pattern = timeSignature.effectiveAccentPattern {
-                    clickDuration = sixteenthNoteDuration * Double(pattern[clickIndex])
-                } else {
-                    clickDuration = sixteenthNoteDuration
-                }
-            } else if isGroupedEighth && subdivision == .quarter {
-                if let pattern = timeSignature.effectiveAccentPattern {
-                    clickDuration = eighthNoteDuration * Double(pattern[clickIndex])
-                } else {
-                    clickDuration = eighthNoteDuration
-                }
-            } else if subdivision == .eighth {
-                if isGroupedEighth {
-                    clickDuration = eighthNoteDuration
-                } else {
-                    clickDuration = quarterNoteDuration / 2.0
-                }
-            } else {
+            switch subdivision {
+            case .quarter:
+                totalClicks = 4
                 clickDuration = quarterNoteDuration
+            case .eighth:
+                totalClicks = 8
+                clickDuration = quarterNoteDuration / 2.0
             }
-            
-            nextClickSampleTime += secondsToSamples(clickDuration)
+
+            for clickIndex in 0..<totalClicks {
+                let clickType: ClickType = clickIndex == 0 ? .downbeat : .offbeat
+                let beatNumber: Int
+                switch subdivision {
+                case .quarter:
+                    beatNumber = clickIndex + 1
+                case .eighth:
+                    beatNumber = (clickIndex / 2) + 1
+                }
+
+                scheduleClick(at: nextClickSampleTime, type: clickType, bar: -1, beat: beatNumber, tempo: effectiveTempo)
+                nextClickSampleTime += secondsToSamples(clickDuration)
+            }
+
+        case .matchBar:
+            // Match the first bar's time signature (original behavior)
+            let timeSignature = score.timeSignature(at: startBar)
+            let eighthNoteDuration = quarterNoteDuration / 2.0
+            let sixteenthNoteDuration = quarterNoteDuration / 4.0
+
+            let isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
+            let isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
+            let actualBeats = timeSignature.actualBeatsPerBar
+
+            let totalClicksPerBar: Int
+            switch subdivision {
+            case .quarter:
+                totalClicksPerBar = actualBeats
+            case .eighth:
+                if isSixteenth {
+                    totalClicksPerBar = actualBeats
+                } else if isGroupedEighth {
+                    totalClicksPerBar = timeSignature.beatsPerBar
+                } else {
+                    totalClicksPerBar = actualBeats * 2
+                }
+            }
+
+            for clickIndex in 0..<totalClicksPerBar {
+                let clickType: ClickType = clickIndex == 0 ? .downbeat : .offbeat
+
+                let beatNumber: Int
+                if isSixteenth || (isGroupedEighth && subdivision == .quarter) {
+                    beatNumber = clickIndex + 1
+                } else if isGroupedEighth && subdivision == .eighth {
+                    let accentPositions = timeSignature.accentPositions()
+                    var beatNum = 1
+                    for (idx, pos) in accentPositions.enumerated() {
+                        if clickIndex >= pos {
+                            beatNum = idx + 1
+                        }
+                    }
+                    beatNumber = beatNum
+                } else if subdivision == .quarter {
+                    beatNumber = clickIndex + 1
+                } else {
+                    beatNumber = (clickIndex / 2) + 1
+                }
+
+                scheduleClick(at: nextClickSampleTime, type: clickType, bar: -1, beat: beatNumber, tempo: effectiveTempo)
+
+                let clickDuration: Double
+                if isSixteenth {
+                    if let pattern = timeSignature.effectiveAccentPattern {
+                        clickDuration = sixteenthNoteDuration * Double(pattern[clickIndex])
+                    } else {
+                        clickDuration = sixteenthNoteDuration
+                    }
+                } else if isGroupedEighth && subdivision == .quarter {
+                    if let pattern = timeSignature.effectiveAccentPattern {
+                        clickDuration = eighthNoteDuration * Double(pattern[clickIndex])
+                    } else {
+                        clickDuration = eighthNoteDuration
+                    }
+                } else if subdivision == .eighth {
+                    if isGroupedEighth {
+                        clickDuration = eighthNoteDuration
+                    } else {
+                        clickDuration = quarterNoteDuration / 2.0
+                    }
+                } else {
+                    clickDuration = quarterNoteDuration
+                }
+
+                nextClickSampleTime += secondsToSamples(clickDuration)
+            }
         }
-        
+
         return nextClickSampleTime
     }
     

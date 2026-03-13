@@ -3,6 +3,7 @@ package com.scorepulse.ui.viewmodel
 import androidx.lifecycle.ViewModel
 import com.scorepulse.audio.MetronomeEngine
 import com.scorepulse.model.Score
+import com.scorepulse.model.CountInMode
 import com.scorepulse.model.SubdivisionMode
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,6 +36,9 @@ class ScorePlayerViewModel : ViewModel() {
     
     private val _countIn = MutableStateFlow(true)
     val countIn: StateFlow<Boolean> = _countIn.asStateFlow()
+
+    private val _countInMode = MutableStateFlow(CountInMode.STANDARD)
+    val countInMode: StateFlow<CountInMode> = _countInMode.asStateFlow()
     
     private val _isCountingIn = MutableStateFlow(false)
     val isCountingIn: StateFlow<Boolean> = _isCountingIn.asStateFlow()
@@ -64,6 +68,10 @@ class ScorePlayerViewModel : ViewModel() {
     fun setCountIn(enabled: Boolean) {
         _countIn.value = enabled
     }
+
+    fun setCountInMode(mode: CountInMode) {
+        _countInMode.value = mode
+    }
     
     fun startPlayback(score: Score) {
         playStartBar = _currentBar.value
@@ -73,7 +81,8 @@ class ScorePlayerViewModel : ViewModel() {
             startBar = _currentBar.value,
             tempoMultiplier = _tempoMultiplier.value,
             subdivision = _subdivision.value,
-            countIn = _countIn.value
+            countIn = _countIn.value,
+            countInMode = _countInMode.value
         ) { bar, beat, tempo ->
             _isCountingIn.value = bar < 0
             if (bar >= 0) {

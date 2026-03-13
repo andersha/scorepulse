@@ -1,6 +1,14 @@
 import Foundation
 import SwiftUI
 
+/// Count-in mode for score playback
+enum CountInMode: String, CaseIterable, Identifiable {
+    case standard = "4/4"
+    case matchBar = "Match bar"
+
+    var id: String { rawValue }
+}
+
 /// Subdivision mode for metronome clicks
 enum SubdivisionMode: String, CaseIterable, Identifiable {
     case quarter = "Quarter Notes"

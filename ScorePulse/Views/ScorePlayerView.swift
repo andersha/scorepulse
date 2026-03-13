@@ -11,6 +11,7 @@ struct ScorePlayerView: View {
     @State private var subdivision = SubdivisionMode.quarter
     @State private var rehearsalMode = false
     @State private var countIn = true  // Count one bar before starting
+    @State private var countInMode: CountInMode = .standard
     @State private var isCountingIn = false  // True during count-in bar
     @State private var playStartBar = 1  // The bar we started playing from
     @State private var showingBarInput = false
@@ -37,17 +38,6 @@ struct ScorePlayerView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 20) {
-                // Score info header
-                VStack(spacing: 4) {
-                    Text(score.title)
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    Text(score.composer)
-                        .font(.subheadline)
-                        .foregroundColor(.secondary)
-                }
-                .padding(.top, 8)
-                
                 // Beat indicator and current position side by side
                 HStack(spacing: 16) {
                     // Visual beat indicator
@@ -200,14 +190,26 @@ struct ScorePlayerView: View {
                     .cornerRadius(12)
                 }
                 
-                // Count-in toggle
-                Toggle("Count-in", isOn: $countIn)
-                    .font(.subheadline)
-                    .fontWeight(.medium)
-                    .disabled(engine.isPlaying)
-                    .padding()
-                    .background(Color.orange.opacity(countIn ? 0.1 : 0.05))
-                    .cornerRadius(12)
+                // Count-in toggle and mode
+                VStack(spacing: 8) {
+                    Toggle("Count-in", isOn: $countIn)
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .disabled(engine.isPlaying)
+
+                    if countIn {
+                        Picker("Count-in mode", selection: $countInMode) {
+                            ForEach(CountInMode.allCases) { mode in
+                                Text(mode.rawValue).tag(mode)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                        .disabled(engine.isPlaying)
+                    }
+                }
+                .padding()
+                .background(Color.orange.opacity(countIn ? 0.1 : 0.05))
+                .cornerRadius(12)
                 
                 // Play/Stop button
                 Button(action: togglePlayback) {
@@ -227,8 +229,19 @@ struct ScorePlayerView: View {
             }
             .padding()
         }
-        .navigationTitle("Player")
+        .navigationTitle(score.title)
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .principal) {
+                VStack(spacing: 0) {
+                    Text(score.title)
+                        .font(.headline)
+                    Text(score.composer)
+                        .font(.caption2)
+                        .foregroundColor(.secondary)
+                }
+            }
+        }
         .alert("Go to Bar", isPresented: $showingBarInput) {
             TextField("Bar number", text: $barInputText)
                 .keyboardType(.numberPad)
@@ -277,7 +290,8 @@ struct ScorePlayerView: View {
                 startBar: currentBar,
                 tempoMultiplier: tempoMultiplier,
                 subdivision: subdivision,
-                countIn: countIn
+                countIn: countIn,
+                countInMode: countInMode
             ) { bar, beat, tempo in
                 // bar == -1 means count-in, don't update bar position
                 isCountingIn = (bar < 0)

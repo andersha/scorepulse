@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.scorepulse.model.Score
+import com.scorepulse.model.CountInMode
 import com.scorepulse.model.SubdivisionMode
 import com.scorepulse.ui.viewmodel.ScorePlayerViewModel
 
@@ -34,6 +35,7 @@ fun ScorePlayerScreen(
     val subdivision by viewModel.subdivision.collectAsState()
     val rehearsalMode by viewModel.rehearsalMode.collectAsState()
     val countIn by viewModel.countIn.collectAsState()
+    val countInMode by viewModel.countInMode.collectAsState()
     val isCountingIn by viewModel.isCountingIn.collectAsState()
     val isPlaying by viewModel.metronomeEngine.isPlaying.collectAsState()
 
@@ -219,17 +221,37 @@ fun ScorePlayerScreen(
                     }
                 }
                 Card(modifier = Modifier.weight(1f)) {
-                    Row(
-                        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp),
-                        verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                    Column(
+                        modifier = Modifier.fillMaxWidth().padding(horizontal = 12.dp, vertical = 8.dp)
                     ) {
-                        Text("Count", style = MaterialTheme.typography.bodyMedium)
-                        Switch(
-                            checked = countIn,
-                            onCheckedChange = { viewModel.setCountIn(it) },
-                            enabled = !isPlaying
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            Text("Count", style = MaterialTheme.typography.bodyMedium)
+                            Switch(
+                                checked = countIn,
+                                onCheckedChange = { viewModel.setCountIn(it) },
+                                enabled = !isPlaying
+                            )
+                        }
+                        if (countIn) {
+                            Row(
+                                modifier = Modifier.fillMaxWidth().padding(top = 4.dp),
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                CountInMode.entries.forEach { mode ->
+                                    FilterChip(
+                                        selected = mode == countInMode,
+                                        onClick = { viewModel.setCountInMode(mode) },
+                                        label = { Text(mode.displayLabel, style = MaterialTheme.typography.labelSmall) },
+                                        enabled = !isPlaying,
+                                        modifier = Modifier.weight(1f)
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }

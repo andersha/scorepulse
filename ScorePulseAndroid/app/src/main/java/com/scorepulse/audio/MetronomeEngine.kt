@@ -4,6 +4,7 @@ import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
 import com.scorepulse.model.Score
+import com.scorepulse.model.CountInMode
 import com.scorepulse.model.SubdivisionMode
 import com.scorepulse.model.TimeSignature
 import kotlinx.coroutines.*
@@ -227,6 +228,7 @@ class MetronomeEngine {
         tempoMultiplier: Double,
         subdivision: SubdivisionMode,
         countIn: Boolean = false,
+        countInMode: CountInMode = CountInMode.STANDARD,
         onPositionUpdate: (bar: Int, beat: Int, tempo: Int) -> Unit
     ) {
         stop()
@@ -247,7 +249,7 @@ class MetronomeEngine {
 
             // Play count-in if enabled
             if (countIn) {
-                playCountIn(track, downbeatClick, offbeatClick, score, startBar, tempoMultiplier, subdivision, onPositionUpdate)
+                playCountIn(track, downbeatClick, offbeatClick, score, startBar, tempoMultiplier, subdivision, countInMode, onPositionUpdate)
             }
 
             var barNumber = startBar
@@ -377,78 +379,117 @@ class MetronomeEngine {
         startBar: Int,
         tempoMultiplier: Double,
         subdivision: SubdivisionMode,
+        countInMode: CountInMode,
         onPositionUpdate: (bar: Int, beat: Int, tempo: Int) -> Unit
     ) {
-        val timeSignature = score.timeSignature(startBar)
         val baseTempo = score.tempo(startBar)
         val effectiveTempo = (baseTempo * tempoMultiplier).toInt()
-
         val quarterNoteDurationMs = 60000.0 / effectiveTempo
-        val eighthNoteDurationMs = quarterNoteDurationMs / 2.0
-        val sixteenthNoteDurationMs = quarterNoteDurationMs / 4.0
 
-        val isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
-        val isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
-        val actualBeats = timeSignature.actualBeatsPerBar
-
-        val totalClicksPerBar = when (subdivision) {
-            SubdivisionMode.QUARTER -> actualBeats
-            SubdivisionMode.EIGHTH -> when {
-                isSixteenth -> actualBeats
-                isGroupedEighth -> timeSignature.beatsPerBar
-                else -> actualBeats * 2
-            }
-        }
-
-        for (clickIndex in 0 until totalClicksPerBar) {
-            val clickSamples = if (clickIndex == 0) downbeatClick else offbeatClick
-
-            val beatNumber = when {
-                isSixteenth || (isGroupedEighth && subdivision == SubdivisionMode.QUARTER) ->
-                    clickIndex + 1
-                isGroupedEighth && subdivision == SubdivisionMode.EIGHTH -> {
-                    val accentPositions = timeSignature.accentPositions()
-                    var beatNum = 1
-                    for ((idx, pos) in accentPositions.withIndex()) {
-                        if (clickIndex >= pos) beatNum = idx + 1
+        when (countInMode) {
+            CountInMode.STANDARD -> {
+                // Simple 4/4 count-in: 4 quarter-note clicks (or 8 eighth-note clicks)
+                val totalClicks: Int
+                val clickDurationTotal: Double
+                when (subdivision) {
+                    SubdivisionMode.QUARTER -> {
+                        totalClicks = 4
+                        clickDurationTotal = quarterNoteDurationMs
                     }
-                    beatNum
+                    SubdivisionMode.EIGHTH -> {
+                        totalClicks = 8
+                        clickDurationTotal = quarterNoteDurationMs / 2.0
+                    }
                 }
-                subdivision == SubdivisionMode.QUARTER -> clickIndex + 1
-                else -> (clickIndex / 2) + 1
+
+                for (clickIndex in 0 until totalClicks) {
+                    val clickSamples = if (clickIndex == 0) downbeatClick else offbeatClick
+                    val beatNumber = when (subdivision) {
+                        SubdivisionMode.QUARTER -> clickIndex + 1
+                        SubdivisionMode.EIGHTH -> (clickIndex / 2) + 1
+                    }
+
+                    track.write(clickSamples, 0, clickSamples.size)
+
+                    withContext(Dispatchers.Main) {
+                        onPositionUpdate(-1, beatNumber, effectiveTempo)
+                    }
+
+                    val silenceDurationMs = clickDurationTotal - clickDurationMs
+                    if (silenceDurationMs > 0) {
+                        val silenceSamples = generateSilence(silenceDurationMs)
+                        track.write(silenceSamples, 0, silenceSamples.size)
+                    }
+                }
             }
 
-            val beatDurationMs = when {
-                isSixteenth -> {
-                    val pattern = timeSignature.effectiveAccentPattern
-                    if (pattern != null) sixteenthNoteDurationMs * pattern[clickIndex]
-                    else sixteenthNoteDurationMs
-                }
-                isGroupedEighth && subdivision == SubdivisionMode.QUARTER -> {
-                    val pattern = timeSignature.effectiveAccentPattern
-                    if (pattern != null) eighthNoteDurationMs * pattern[clickIndex]
-                    else eighthNoteDurationMs
-                }
-                subdivision == SubdivisionMode.EIGHTH -> {
-                    if (isGroupedEighth) eighthNoteDurationMs
-                    else quarterNoteDurationMs / 2.0
-                }
-                else -> quarterNoteDurationMs
-            }
+            CountInMode.MATCH_BAR -> {
+                // Match the first bar's time signature (original behavior)
+                val timeSignature = score.timeSignature(startBar)
+                val eighthNoteDurationMs = quarterNoteDurationMs / 2.0
+                val sixteenthNoteDurationMs = quarterNoteDurationMs / 4.0
 
-            // Write click
-            track.write(clickSamples, 0, clickSamples.size)
+                val isGroupedEighth = timeSignature.hasGroupings && timeSignature.beatUnit == 8
+                val isSixteenth = timeSignature.isSixteenthBased && timeSignature.hasGroupings
+                val actualBeats = timeSignature.actualBeatsPerBar
 
-            // Update UI
-            withContext(Dispatchers.Main) {
-                onPositionUpdate(-1, beatNumber, effectiveTempo)
-            }
+                val totalClicksPerBar = when (subdivision) {
+                    SubdivisionMode.QUARTER -> actualBeats
+                    SubdivisionMode.EIGHTH -> when {
+                        isSixteenth -> actualBeats
+                        isGroupedEighth -> timeSignature.beatsPerBar
+                        else -> actualBeats * 2
+                    }
+                }
 
-            // Write silence
-            val silenceDurationMs = beatDurationMs - clickDurationMs
-            if (silenceDurationMs > 0) {
-                val silenceSamples = generateSilence(silenceDurationMs)
-                track.write(silenceSamples, 0, silenceSamples.size)
+                for (clickIndex in 0 until totalClicksPerBar) {
+                    val clickSamples = if (clickIndex == 0) downbeatClick else offbeatClick
+
+                    val beatNumber = when {
+                        isSixteenth || (isGroupedEighth && subdivision == SubdivisionMode.QUARTER) ->
+                            clickIndex + 1
+                        isGroupedEighth && subdivision == SubdivisionMode.EIGHTH -> {
+                            val accentPositions = timeSignature.accentPositions()
+                            var beatNum = 1
+                            for ((idx, pos) in accentPositions.withIndex()) {
+                                if (clickIndex >= pos) beatNum = idx + 1
+                            }
+                            beatNum
+                        }
+                        subdivision == SubdivisionMode.QUARTER -> clickIndex + 1
+                        else -> (clickIndex / 2) + 1
+                    }
+
+                    val beatDurationMs = when {
+                        isSixteenth -> {
+                            val pattern = timeSignature.effectiveAccentPattern
+                            if (pattern != null) sixteenthNoteDurationMs * pattern[clickIndex]
+                            else sixteenthNoteDurationMs
+                        }
+                        isGroupedEighth && subdivision == SubdivisionMode.QUARTER -> {
+                            val pattern = timeSignature.effectiveAccentPattern
+                            if (pattern != null) eighthNoteDurationMs * pattern[clickIndex]
+                            else eighthNoteDurationMs
+                        }
+                        subdivision == SubdivisionMode.EIGHTH -> {
+                            if (isGroupedEighth) eighthNoteDurationMs
+                            else quarterNoteDurationMs / 2.0
+                        }
+                        else -> quarterNoteDurationMs
+                    }
+
+                    track.write(clickSamples, 0, clickSamples.size)
+
+                    withContext(Dispatchers.Main) {
+                        onPositionUpdate(-1, beatNumber, effectiveTempo)
+                    }
+
+                    val silenceDurationMs = beatDurationMs - clickDurationMs
+                    if (silenceDurationMs > 0) {
+                        val silenceSamples = generateSilence(silenceDurationMs)
+                        track.write(silenceSamples, 0, silenceSamples.size)
+                    }
+                }
             }
         }
     }
